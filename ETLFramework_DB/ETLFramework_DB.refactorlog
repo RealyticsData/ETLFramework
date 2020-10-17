@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Move Schema" Key="f8839e1b-b697-4006-b36a-c71c9ea57732" ChangeDateTime="10/16/2020 23:53:28">
+    <Property Name="ElementName" Value="[Metadata].[DataDestination]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="Framework" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="52274a39-af18-4c31-ac01-1926f25c470b" ChangeDateTime="10/16/2020 23:54:23">
+    <Property Name="ElementName" Value="[Metadata].[DataTransformation]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="Framework" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="7062dfbb-bf4b-4598-9482-cd153979f9c8" ChangeDateTime="10/16/2020 23:54:52">
+    <Property Name="ElementName" Value="[Metadata].[DataSet]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="Framework" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Move Schema" Key="be50c227-c124-445b-862f-bb1b3e35168b" ChangeDateTime="10/16/2020 23:55:37">
+    <Property Name="ElementName" Value="[Metadata].[DataDestinationColumn]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="Framework" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="299deef8-ec46-4a1b-9b7b-3cb012d637e4" ChangeDateTime="10/16/2020 23:56:25">
+    <Property Name="ElementName" Value="[Framework].[PK_Metadata#DataDestination]" />
+    <Property Name="ElementType" Value="SqlPrimaryKeyConstraint" />
+    <Property Name="ParentElementName" Value="[Framework].[DataDestination]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PK_Framework#DataDestination" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4277f5d1-e2e5-46f4-9770-09f4298d2a0b" ChangeDateTime="10/16/2020 23:56:59">
+    <Property Name="ElementName" Value="[Framework].[FK_Metadata#DataDestination_Metadata#DataDestinationTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[Framework].[DataDestination]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FK_Framework#DataDestination_Framework#DataDestinationTable" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="690e12a9-3219-4014-b419-51cfd46f1b83" ChangeDateTime="10/16/2020 23:57:21">
+    <Property Name="ElementName" Value="[Framework].[FK_Metadata#DataDestination_Metadata#DataSet]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[Framework].[DataDestination]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FK_Framework#DataDestination_Framework#DataSet" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c38990c5-95a7-47a5-aebd-5a96cb59dfcb" ChangeDateTime="10/16/2020 23:57:50">
+    <Property Name="ElementName" Value="[Framework].[PK_Metadata#DataDestinationColumn]" />
+    <Property Name="ElementType" Value="SqlPrimaryKeyConstraint" />
+    <Property Name="ParentElementName" Value="[Framework].[DataDestinationColumn]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PK_Framework#DataDestinationColumn" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="df826213-36cc-4e3b-ba2d-a59722cc16cb" ChangeDateTime="10/16/2020 23:58:04">
+    <Property Name="ElementName" Value="[Framework].[FK_Metadata#DataDestinationColumn_Metadata#DatabaseTableColumn]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[Framework].[DataDestinationColumn]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FK_Framework#DataDestinationColumn_Metadata#DatabaseTableColumn" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d3c6759c-b0e8-4845-b24c-0ce9c606dcd7" ChangeDateTime="10/16/2020 23:58:26">
+    <Property Name="ElementName" Value="[Framework].[FK_Metadata#DataDestinationColumn_Metadata#DataDestinationTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[Framework].[DataDestinationColumn]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FK_Framework#DataDestinationColumn_Framework#DataDestinationTable" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e077b0bb-137b-4485-84a7-e0645a3f8771" ChangeDateTime="10/16/2020 23:58:45">
+    <Property Name="ElementName" Value="[Framework].[PK_Metadata#DataTransformation]" />
+    <Property Name="ElementType" Value="SqlPrimaryKeyConstraint" />
+    <Property Name="ParentElementName" Value="[Framework].[DataTransformation]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PK_Framework#DataTransformation" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d43da373-3a82-45c1-821f-b27474c22315" ChangeDateTime="10/16/2020 23:59:05">
+    <Property Name="ElementName" Value="[Framework].[FK_Metadata#DataTransformation_Metadata#DataSet]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[Framework].[DataTransformation]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FK_Framework#DataTransformation_Framework#DataSet" />
+  </Operation>
+  <Operation Name="Move Schema" Key="5ca11ae4-8b04-48fc-b11c-d1d12769f30d" ChangeDateTime="10/16/2020 23:59:57">
+    <Property Name="ElementName" Value="[Metadata].[DataDestinationKey]" />
+    <Property Name="ElementType" Value="SqlTable" />
+    <Property Name="NewSchema" Value="Framework" />
+    <Property Name="IsNewSchemaExternal" Value="False" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0f380439-844d-40b8-ad62-722da15989a2" ChangeDateTime="10/17/2020 00:00:08">
+    <Property Name="ElementName" Value="[Framework].[PK_Metadata#DataDestinationKey]" />
+    <Property Name="ElementType" Value="SqlPrimaryKeyConstraint" />
+    <Property Name="ParentElementName" Value="[Framework].[DataDestinationKey]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PK_Framework#DataDestinationKey" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="056475ff-af12-4549-bfa7-bc4eb153c73b" ChangeDateTime="10/17/2020 00:00:28">
+    <Property Name="ElementName" Value="[Framework].[FK_Metadata#DataDestinationKey_Metadata#DataDestinationTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[Framework].[DataDestinationKey]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FK_Framework#DataDestinationKey_Framework#DataDestinationTable" />
+  </Operation>
+</Operations>

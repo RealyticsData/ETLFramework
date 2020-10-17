@@ -1,0 +1,1950 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/9/2020 3:35:12 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HBCLAP0141"
+  DTS:CreatorName="CHURCHILL\Jonathan.Szeto"
+  DTS:DTSID="{855D00C3-48D0-4148-868F-256AD8596410}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.93"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Get DB Metadata"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{77ADA958-E74E-4C86-B3F6-57C1D91C39CC}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[EDW Gaming.PROD]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{BF044378-59DE-484F-9A75-3833E9A544F9}"
+      DTS:ObjectName="EDW Gaming.PROD">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=P10WINSQLS08;Initial Catalog=master;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Extract EDW Gaming DBs"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{10A71EF4-DE6C-4500-A85B-5562F7A36B3B}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Extract EDW Gaming DBs">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{98FE4EBC-B564-40F8-B31A-CEA95BA7F2B1}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="User"
+          DTS:ObjectName="ServerID">
+          <DTS:VariableValue
+            DTS:DataType="3">1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Extract EDW Gaming DBs\Get Active Databases"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{8B86E3AB-4420-4F67-9D3F-38262B06FF11}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Active Databases"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Get Active Databases"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT
+	cast(@@servername AS nvarchar(128)) AS ServerName,
+	cast(db.name AS nvarchar(128)) AS DatabaseName
+FROM sys.databases db
+WHERE
+	db.name NOT IN (
+		'master',
+		'model',
+		'msdb',
+		'tempdb',
+		'SSISDB',
+		'distribution'
+	)
+	AND db.state = 0
+ORDER BY db.name
+;</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[EDW Gaming.PROD]"
+                      connectionManagerRefId="Package.ConnectionManagers[EDW Gaming.PROD]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Output].Columns[ServerName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Output].ExternalColumns[ServerName]"
+                          length="128"
+                          lineageId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Output].Columns[ServerName]"
+                          name="ServerName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Output].Columns[DatabaseName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Output].ExternalColumns[DatabaseName]"
+                          length="128"
+                          lineageId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Output].Columns[DatabaseName]"
+                          name="DatabaseName"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Output].ExternalColumns[ServerName]"
+                          dataType="wstr"
+                          length="128"
+                          name="ServerName" />
+                        <externalMetadataColumn
+                          refId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Output].ExternalColumns[DatabaseName]"
+                          dataType="wstr"
+                          length="128"
+                          name="DatabaseName" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Error Output].Columns[ServerName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Error Output].Columns[ServerName]"
+                          name="ServerName" />
+                        <outputColumn
+                          refId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Error Output].Columns[DatabaseName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Error Output].Columns[DatabaseName]"
+                          name="DatabaseName" />
+                        <outputColumn
+                          refId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Load to Stage Table"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[EtlOps].[StageDatabase]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Connections[OleDbConnection]"
+                      connectionManagerID="{D923472F-BB07-49E9-8047-33750147D228}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[ETLFramework]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Inputs[OLE DB Destination Input].Columns[ServerName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="ServerName"
+                          externalMetadataColumnId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Inputs[OLE DB Destination Input].ExternalColumns[ServerName]"
+                          lineageId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Output].Columns[ServerName]" />
+                        <inputColumn
+                          refId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Inputs[OLE DB Destination Input].Columns[DatabaseName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="DatabaseName"
+                          externalMetadataColumnId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Inputs[OLE DB Destination Input].ExternalColumns[DatabaseName]"
+                          lineageId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Output].Columns[DatabaseName]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Inputs[OLE DB Destination Input].ExternalColumns[ServerName]"
+                          dataType="wstr"
+                          length="128"
+                          name="ServerName" />
+                        <externalMetadataColumn
+                          refId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Inputs[OLE DB Destination Input].ExternalColumns[DatabaseName]"
+                          dataType="wstr"
+                          length="128"
+                          name="DatabaseName" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Extract EDW Gaming DBs\Get Active Databases.Paths[OLE DB Source Output]"
+                  endId="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Extract EDW Gaming Tables and Columns"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{A0F29DE9-AF48-4B0A-A576-89E5804FC7C4}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Extract EDW Gaming Tables and Columns">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{72CB6EFA-3CAD-4EA8-9B6E-50DE42F33924}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="User"
+          DTS:ObjectName="DatabaseList">
+          <DTS:VariableValue
+            DTS:DataSubType="ManagedSerializable"
+            DTS:DataType="13">
+            <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+              <SOAP-ENV:Body>
+                <xsd:anyType
+                  id="ref-1"></xsd:anyType>
+              </SOAP-ENV:Body>
+            </SOAP-ENV:Envelope>
+          </DTS:VariableValue>
+        </DTS:Variable>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{1A665ADA-4A44-4519-B064-65C801E63DFE}"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="DatabaseName">
+          <DTS:VariableValue
+            DTS:DataType="8"
+            xml:space="preserve"></DTS:VariableValue>
+        </DTS:Variable>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{9DCA5967-6EA3-4942-B670-5BA219F4B4D5}"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="SqlCommandString">
+          <DTS:VariableValue
+            DTS:DataType="8">SELECT 	@@servername AS ServerName, 	N'EDW' AS DatabaseName, 	s.name AS TableSchema, 	t.name AS TableName, 	c.column_id AS ColumnNumber, 	c.name AS ColumnName, 	typ.name + isnull('(' + CASE 		WHEN typ.name LIKE '%char' 			OR typ.name LIKE '%binary' THEN CASE 				WHEN c.max_length = -1 THEN 'max' 				WHEN typ.name LIKE 'n%' THEN cast(c.max_length / 2 AS nvarchar(11)) 				ELSE cast(c.max_length AS nvarchar(11)) 			END 		WHEN typ.name IN ('datetime2','time','datetimeoffset') THEN cast(c.scale AS nvarchar(11)) 		WHEN typ.name = 'decimal' THEN cast(c.precision AS nvarchar(11)) + ',' + cast(c.scale AS nvarchar(11)) 	END + ')', '')AS DataType FROM EDW.sys.tables t 	INNER JOIN EDW.sys.schemas s 	ON t.schema_id = s.schema_id 	INNER JOIN EDW.sys.columns c 	ON t.object_id = c.object_id 	INNER JOIN EDW.sys.types typ 	ON c.user_type_id = typ.user_type_id ;</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Extract EDW Gaming Tables and Columns\Get Database List"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{5C67017A-B87D-4E50-9831-0AC976F57768}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Database List"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{D923472F-BB07-49E9-8047-33750147D228}"
+              SQLTask:SqlStatementSource="SELECT DatabaseName FROM Metadata.SqlDatabase&#xA;WHERE&#xA;&#x9;DatabaseTypeID IN (1,2)&#xA;;"
+              SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::DatabaseList" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata"
+          DTS:CreationName="STOCK:FOREACHLOOP"
+          DTS:Description="Foreach Loop Container"
+          DTS:DTSID="{4D9CDDCC-9954-418F-A4A6-45C282A8ACD3}"
+          DTS:ExecutableType="STOCK:FOREACHLOOP"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Table and Column Metadata">
+          <DTS:ForEachEnumerator
+            DTS:CreationName="Microsoft.ForEachADOEnumerator"
+            DTS:DTSID="{177434BB-21FF-4C3E-99A3-71EC3AB94190}"
+            DTS:ObjectName="{177434BB-21FF-4C3E-99A3-71EC3AB94190}">
+            <DTS:ObjectData>
+              <FEEADO
+                EnumType="EnumerateRowsInFirstTable"
+                VarName="User::DatabaseList" />
+            </DTS:ObjectData>
+          </DTS:ForEachEnumerator>
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata"
+              DTS:CreationName="Microsoft.Pipeline"
+              DTS:Description="Data Flow Task"
+              DTS:DTSID="{0FC485FA-FCE6-4A76-9D46-F53BAF84EC4D}"
+              DTS:ExecutableType="Microsoft.Pipeline"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Get Table Metadata"
+              DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <pipeline
+                  version="1">
+                  <components>
+                    <component
+                      refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata"
+                      componentClassID="Microsoft.OLEDBSource"
+                      contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                      description="OLE DB Source"
+                      name="Source Table Metadata"
+                      usesDispositions="true"
+                      version="7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset"></property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                        <property
+                          dataType="System.String"
+                          description="The variable that contains the SQL command to be executed."
+                          name="SqlCommandVariable">User::SqlCommandString</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">3</property>
+                        <property
+                          dataType="System.String"
+                          description="The mappings between the parameters in the SQL command and variables."
+                          name="ParameterMapping"></property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[EDW Gaming.PROD]"
+                          connectionManagerRefId="Package.ConnectionManagers[EDW Gaming.PROD]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <outputs>
+                        <output
+                          refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output]"
+                          name="OLE DB Source Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[ServerName]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].ExternalColumns[ServerName]"
+                              length="128"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[ServerName]"
+                              name="ServerName"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[DatabaseName]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].ExternalColumns[DatabaseName]"
+                              length="128"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[DatabaseName]"
+                              name="DatabaseName"
+                              truncationRowDisposition="IgnoreFailure" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[TableSchema]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].ExternalColumns[TableSchema]"
+                              length="128"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[TableSchema]"
+                              name="TableSchema"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[TableName]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                              length="128"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[TableName]"
+                              name="TableName"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[ColumnNumber]"
+                              dataType="i4"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].ExternalColumns[ColumnNumber]"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[ColumnNumber]"
+                              name="ColumnNumber"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[ColumnName]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].ExternalColumns[ColumnName]"
+                              length="128"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[ColumnName]"
+                              name="ColumnName"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[DataType]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].ExternalColumns[DataType]"
+                              length="153"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[DataType]"
+                              name="DataType"
+                              truncationRowDisposition="FailComponent" />
+                          </outputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].ExternalColumns[ServerName]"
+                              dataType="wstr"
+                              length="128"
+                              name="ServerName" />
+                            <externalMetadataColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].ExternalColumns[DatabaseName]"
+                              dataType="wstr"
+                              length="3"
+                              name="DatabaseName" />
+                            <externalMetadataColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].ExternalColumns[TableSchema]"
+                              dataType="wstr"
+                              length="128"
+                              name="TableSchema" />
+                            <externalMetadataColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                              dataType="wstr"
+                              length="128"
+                              name="TableName" />
+                            <externalMetadataColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].ExternalColumns[ColumnNumber]"
+                              dataType="i4"
+                              name="ColumnNumber" />
+                            <externalMetadataColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].ExternalColumns[ColumnName]"
+                              dataType="wstr"
+                              length="128"
+                              name="ColumnName" />
+                            <externalMetadataColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].ExternalColumns[DataType]"
+                              dataType="wstr"
+                              length="153"
+                              name="DataType" />
+                          </externalMetadataColumns>
+                        </output>
+                        <output
+                          refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output]"
+                          isErrorOut="true"
+                          name="OLE DB Source Error Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[ServerName]"
+                              dataType="wstr"
+                              length="128"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[ServerName]"
+                              name="ServerName" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[DatabaseName]"
+                              dataType="wstr"
+                              length="3"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[DatabaseName]"
+                              name="DatabaseName" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[TableSchema]"
+                              dataType="wstr"
+                              length="128"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[TableSchema]"
+                              name="TableSchema" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                              dataType="wstr"
+                              length="128"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                              name="TableName" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[ColumnNumber]"
+                              dataType="i4"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[ColumnNumber]"
+                              name="ColumnNumber" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[ColumnName]"
+                              dataType="wstr"
+                              length="128"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[ColumnName]"
+                              name="ColumnName" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[DataType]"
+                              dataType="wstr"
+                              length="153"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[DataType]"
+                              name="DataType" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                    <component
+                      refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata"
+                      componentClassID="Microsoft.OLEDBDestination"
+                      contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                      description="OLE DB Destination"
+                      name="Stage Table Metadata"
+                      usesDispositions="true"
+                      version="4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset">[EtlOps].[StageTableMetadata]</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">3</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepIdentity">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepNulls">false</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                          name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                          name="FastLoadMaxInsertCommitSize">2147483647</property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Connections[OleDbConnection]"
+                          connectionManagerID="{D923472F-BB07-49E9-8047-33750147D228}:external"
+                          connectionManagerRefId="Project.ConnectionManagers[ETLFramework]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <inputs>
+                        <input
+                          refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input]"
+                          errorOrTruncationOperation="Insert"
+                          errorRowDisposition="FailComponent"
+                          hasSideEffects="true"
+                          name="OLE DB Destination Input">
+                          <inputColumns>
+                            <inputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].Columns[ServerName]"
+                              cachedDataType="wstr"
+                              cachedLength="128"
+                              cachedName="ServerName"
+                              externalMetadataColumnId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].ExternalColumns[ServerName]"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[ServerName]" />
+                            <inputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].Columns[DatabaseName]"
+                              cachedDataType="wstr"
+                              cachedLength="128"
+                              cachedName="DatabaseName"
+                              externalMetadataColumnId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].ExternalColumns[DatabaseName]"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[DatabaseName]" />
+                            <inputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].Columns[TableSchema]"
+                              cachedDataType="wstr"
+                              cachedLength="128"
+                              cachedName="TableSchema"
+                              externalMetadataColumnId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].ExternalColumns[TableSchema]"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[TableSchema]" />
+                            <inputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].Columns[TableName]"
+                              cachedDataType="wstr"
+                              cachedLength="128"
+                              cachedName="TableName"
+                              externalMetadataColumnId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].ExternalColumns[TableName]"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[TableName]" />
+                            <inputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].Columns[ColumnNumber]"
+                              cachedDataType="i4"
+                              cachedName="ColumnNumber"
+                              externalMetadataColumnId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].ExternalColumns[ColumnNumber]"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[ColumnNumber]" />
+                            <inputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].Columns[ColumnName]"
+                              cachedDataType="wstr"
+                              cachedLength="128"
+                              cachedName="ColumnName"
+                              externalMetadataColumnId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].ExternalColumns[ColumnName]"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[ColumnName]" />
+                            <inputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].Columns[DataType]"
+                              cachedDataType="wstr"
+                              cachedLength="153"
+                              cachedName="DataType"
+                              externalMetadataColumnId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].ExternalColumns[DataType]"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output].Columns[DataType]" />
+                          </inputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].ExternalColumns[ServerName]"
+                              dataType="wstr"
+                              length="128"
+                              name="ServerName" />
+                            <externalMetadataColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].ExternalColumns[DatabaseName]"
+                              dataType="wstr"
+                              length="128"
+                              name="DatabaseName" />
+                            <externalMetadataColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].ExternalColumns[TableSchema]"
+                              dataType="wstr"
+                              length="128"
+                              name="TableSchema" />
+                            <externalMetadataColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].ExternalColumns[TableName]"
+                              dataType="wstr"
+                              length="128"
+                              name="TableName" />
+                            <externalMetadataColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].ExternalColumns[ColumnNumber]"
+                              dataType="i4"
+                              name="ColumnNumber" />
+                            <externalMetadataColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].ExternalColumns[ColumnName]"
+                              dataType="wstr"
+                              length="128"
+                              name="ColumnName" />
+                            <externalMetadataColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input].ExternalColumns[DataType]"
+                              dataType="wstr"
+                              length="256"
+                              name="DataType" />
+                          </externalMetadataColumns>
+                        </input>
+                      </inputs>
+                      <outputs>
+                        <output
+                          refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Outputs[OLE DB Destination Error Output]"
+                          exclusionGroup="1"
+                          isErrorOut="true"
+                          name="OLE DB Destination Error Output"
+                          synchronousInputId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input]">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                  </components>
+                  <paths>
+                    <path
+                      refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata.Paths[OLE DB Source Output]"
+                      endId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata.Inputs[OLE DB Destination Input]"
+                      name="OLE DB Source Output"
+                      startId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata.Outputs[OLE DB Source Output]" />
+                  </paths>
+                </pipeline>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Set SQL Command String"
+              DTS:CreationName="Microsoft.ScriptTask"
+              DTS:Description="Script Task"
+              DTS:DTSID="{3A3AACDF-CD30-4299-804C-77C15B7CF48C}"
+              DTS:ExecutableType="Microsoft.ScriptTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Set SQL Command String"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <ScriptProject
+                  Name="ST_d015a921a3434e19adb7e46b055cbbc4"
+                  VSTAMajorVersion="14"
+                  VSTAMinorVersion="0"
+                  Language="CSharp"
+                  ReadOnlyVariables="User::DatabaseName"
+                  ReadWriteVariables="User::SqlCommandString">
+                  <ProjectItem
+                    Name="Properties\Settings.settings"
+                    Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
+                  <ProjectItem
+                    Name="Properties\Resources.resx"
+                    Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></ProjectItem>
+                  <ProjectItem
+                    Name="ST_d015a921a3434e19adb7e46b055cbbc4.csproj"
+                    Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9bdff1ea-0710-415e-a329-e7bd34ce854c}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ST_d015a921a3434e19adb7e46b055cbbc4</RootNamespace>
+    <AssemblyName>ST_d015a921a3434e19adb7e46b055cbbc4</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.ManagedDTS, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.ScriptTask, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+         <Generator>ResXFileCodeGenerator</Generator>
+         <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+             <AutoGen>True</AutoGen>
+         <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+         <Generator>SettingsSingleFileGenerator</Generator>
+         <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+         <AutoGen>True</AutoGen>
+         <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ScriptMain.cs">
+         <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <!-- Include the build rules for a C# project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="ScriptTask"
+                           HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}"
+                           ApplicationType="usd"
+                           Language="cs"
+                           TemplatesPath=""
+                           DebugInfoCommandLine=""
+                           DebugInfoWorkingDir=""
+                           IconImageList=""/>
+        <Host Name="ScriptTask" GeneratedNamespace="$safeprojectname" IconIndex="">
+        </Host>
+        <ProjectClient>
+            <HostIdentifier>SSIS_ST130</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></ProjectItem>
+                  <ProjectItem
+                    Name="ScriptMain.cs"
+                    Encoding="UTF8"><![CDATA[#region Help:  Introduction to the script task
+/* The Script Task allows you to perform virtually any operation that can be accomplished in
+ * a .Net application within the context of an Integration Services control flow. 
+ * 
+ * Expand the other regions which have "Help" prefixes for examples of specific ways to use
+ * Integration Services features within this script task. */
+#endregion
+
+
+#region Namespaces
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Runtime;
+using System.Windows.Forms;
+#endregion
+
+namespace ST_d015a921a3434e19adb7e46b055cbbc4
+{
+    /// <summary>
+    /// ScriptMain is the entry point class of the script.  Do not change the name, attributes,
+    /// or parent of this class.
+    /// </summary>
+	[Microsoft.SqlServer.Dts.Tasks.ScriptTask.SSISScriptTaskEntryPointAttribute]
+	public partial class ScriptMain : Microsoft.SqlServer.Dts.Tasks.ScriptTask.VSTARTScriptObjectModelBase
+	{
+        #region Help:  Using Integration Services variables and parameters in a script
+        /* To use a variable in this script, first ensure that the variable has been added to 
+         * either the list contained in the ReadOnlyVariables property or the list contained in 
+         * the ReadWriteVariables property of this script task, according to whether or not your
+         * code needs to write to the variable.  To add the variable, save this script, close this instance of
+         * Visual Studio, and update the ReadOnlyVariables and 
+         * ReadWriteVariables properties in the Script Transformation Editor window.
+         * To use a parameter in this script, follow the same steps. Parameters are always read-only.
+         * 
+         * Example of reading from a variable:
+         *  DateTime startTime = (DateTime) Dts.Variables["System::StartTime"].Value;
+         * 
+         * Example of writing to a variable:
+         *  Dts.Variables["User::myStringVariable"].Value = "new value";
+         * 
+         * Example of reading from a package parameter:
+         *  int batchId = (int) Dts.Variables["$Package::batchId"].Value;
+         *  
+         * Example of reading from a project parameter:
+         *  int batchId = (int) Dts.Variables["$Project::batchId"].Value;
+         * 
+         * Example of reading from a sensitive project parameter:
+         *  int batchId = (int) Dts.Variables["$Project::batchId"].GetSensitiveValue();
+         * */
+
+        #endregion
+
+        #region Help:  Firing Integration Services events from a script
+        /* This script task can fire events for logging purposes.
+         * 
+         * Example of firing an error event:
+         *  Dts.Events.FireError(18, "Process Values", "Bad value", "", 0);
+         * 
+         * Example of firing an information event:
+         *  Dts.Events.FireInformation(3, "Process Values", "Processing has started", "", 0, ref fireAgain)
+         * 
+         * Example of firing a warning event:
+         *  Dts.Events.FireWarning(14, "Process Values", "No values received for input", "", 0);
+         * */
+        #endregion
+
+        #region Help:  Using Integration Services connection managers in a script
+        /* Some types of connection managers can be used in this script task.  See the topic 
+         * "Working with Connection Managers Programatically" for details.
+         * 
+         * Example of using an ADO.Net connection manager:
+         *  object rawConnection = Dts.Connections["Sales DB"].AcquireConnection(Dts.Transaction);
+         *  SqlConnection myADONETConnection = (SqlConnection)rawConnection;
+         *  //Use the connection in some code here, then release the connection
+         *  Dts.Connections["Sales DB"].ReleaseConnection(rawConnection);
+         *
+         * Example of using a File connection manager
+         *  object rawConnection = Dts.Connections["Prices.zip"].AcquireConnection(Dts.Transaction);
+         *  string filePath = (string)rawConnection;
+         *  //Use the connection in some code here, then release the connection
+         *  Dts.Connections["Prices.zip"].ReleaseConnection(rawConnection);
+         * */
+        #endregion
+
+
+		/// <summary>
+        /// This method is called when this script task executes in the control flow.
+        /// Before returning from this method, set the value of Dts.TaskResult to indicate success or failure.
+        /// To open Help, press F1.
+        /// </summary>
+		public void Main()
+		{
+            string DatabaseName = Dts.Variables["User::DatabaseName"].Value.ToString();
+
+            string SqlTemplate = "SELECT " +
+    "@@servername AS ServerName, " +
+    "N'" + DatabaseName + "' AS DatabaseName, " +
+    "s.name AS TableSchema, " +
+    "t.name AS TableName, " +
+    "c.column_id AS ColumnNumber, " +
+    "c.name AS ColumnName, " +
+    "typ.name + isnull('(' + CASE " +
+        "WHEN typ.name LIKE '%char' " +
+            "OR typ.name LIKE '%binary' THEN CASE " +
+                "WHEN c.max_length = -1 THEN 'max' " +
+                "WHEN typ.name LIKE 'n%' THEN cast(c.max_length / 2 AS nvarchar(11)) " +
+                "ELSE cast(c.max_length AS nvarchar(11)) " +
+            "END " +
+        "WHEN typ.name IN('datetime2', 'time', 'datetimeoffset') THEN cast(c.scale AS nvarchar(11)) " +
+        "WHEN typ.name = 'decimal' THEN cast(c.precision AS nvarchar(11)) + ',' + cast(c.scale AS nvarchar(11)) " +
+    "END + ')', '') AS DataType " +
+"FROM [" + DatabaseName + "].sys.tables t " +
+    "INNER JOIN [" + DatabaseName + "].sys.schemas s " +
+    "ON t.schema_id = s.schema_id " +
+    "INNER JOIN [" + DatabaseName + "].sys.columns c " +
+    "ON t.object_id = c.object_id " +
+    "INNER JOIN [" + DatabaseName + "].sys.types typ " +
+    "ON c.user_type_id = typ.user_type_id " +
+"WHERE " +
+    "t.is_ms_shipped = 0 " +
+"; ";
+
+            Dts.Variables["User::SqlCommandString"].Value = SqlTemplate;
+
+			Dts.TaskResult = (int)ScriptResults.Success;
+		}
+
+        #region ScriptResults declaration
+        /// <summary>
+        /// This enum provides a convenient shorthand within the scope of this class for setting the
+        /// result of the script.
+        /// 
+        /// This code was generated automatically.
+        /// </summary>
+        enum ScriptResults
+        {
+            Success = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Success,
+            Failure = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Failure
+        };
+        #endregion
+
+	}
+}]]></ProjectItem>
+                  <ProjectItem
+                    Name="Project"
+                    Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:CodeName>ST_d015a921a3434e19adb7e46b055cbbc4</msb:CodeName>
+		<msb:Language>msBuild</msb:Language>
+		<msb:DisplayName>ST_d015a921a3434e19adb7e46b055cbbc4</msb:DisplayName>
+		<msb:ProjectId>{F746A016-4F10-4738-B062-86B29E73C141}</msb:ProjectId>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="ST_d015a921a3434e19adb7e46b055cbbc4.csproj"/>
+		<msb:File Include="Properties\AssemblyInfo.cs"/>
+		<msb:File Include="Properties\Settings.settings"/>
+		<msb:File Include="Properties\Resources.resx"/>
+		<msb:File Include="Properties\Resources.Designer.cs"/>
+		<msb:File Include="Properties\Settings.Designer.cs"/>
+		<msb:File Include="ScriptMain.cs"/>
+	</msb:ItemGroup>
+</c:Project>]]></ProjectItem>
+                  <ProjectItem
+                    Name="Properties\Settings.Designer.cs"
+                    Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_d015a921a3434e19adb7e46b055cbbc4.Properties.Settings.get_Default():ST_d015a921a3434e19adb7e46b055cbbc4.Properties.Sett" +
+    "ings")]
+
+namespace ST_d015a921a3434e19adb7e46b055cbbc4.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
+                  <ProjectItem
+                    Name="Properties\AssemblyInfo.cs"
+                    Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_d015a921a3434e19adb7e46b055cbbc4")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_d015a921a3434e19adb7e46b055cbbc4")]
+[assembly: AssemblyCopyright("Copyright @  2020")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+                  <ProjectItem
+                    Name="Properties\Resources.Designer.cs"
+                    Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_d015a921a3434e19adb7e46b055cbbc4.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
+    "rceManager")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_d015a921a3434e19adb7e46b055cbbc4.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
+    "fo")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_d015a921a3434e19adb7e46b055cbbc4.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
+    "):Void")]
+
+namespace ST_d015a921a3434e19adb7e46b055cbbc4.Properties {
+    
+    
+    /// <summary>
+    ///   A strongly-typed resource class, for looking up localized strings, etc.
+    /// </summary>
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    internal class Resources {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
+        
+        private static global::System.Globalization.CultureInfo resourceCulture;
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() {
+        }
+        
+        /// <summary>
+        ///   Returns the cached ResourceManager instance used by this class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if ((resourceMan == null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ST_d015a921a3434e19adb7e46b055cbbc4.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+        
+        /// <summary>
+        ///   Overrides the current thread's CurrentUICulture property for all
+        ///   resource lookups using this strongly typed resource class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
+        }
+    }
+}]]></ProjectItem>
+                  <BinaryItem
+                    Name="ST_d015a921a3434e19adb7e46b055cbbc4.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAC+bh18AAAAAAAAAAOAAIiALATAAABYAAAAIAAAAAAAA9jQA
+AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAGAAAAAAAAAACAAAAAAgAAAAAAAAMAYIUAABAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAKQ0AABPAAAAAEAAAHgEAAAAAAAAAAAAAAAAAAAA
+AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAA/BQAAAAgAAAAFgAAAAIA
+AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAHgEAAAAQAAAAAYAAAAYAAAAAAAAAAAAAAAAAABAAABA
+LnJlbG9jAAAMAAAAAGAAAAACAAAAHgAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAADY
+NAAAAAAAAEgAAAACAAUAYCEAAIwSAAABAAAAAAAAAOwzAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAABMwBACbAAAAAQAAEQIoEAAACm8RAAAKcgEAAHBvEgAACm8T
+AAAKbxQAAAoKHwuNGwAAASUWcicAAHCiJRcGoiUYcnMAAHCiJRkGoiUacv4EAHCiJRsGoiUccjYF
+AHCiJR0GoiUecqoFAHCiJR8JBqIlHwpyHgYAcKIoFQAACgsCKBAAAApvEQAACnLDBgBwbxIAAAoH
+bxYAAAoCKBAAAAoWbxcAAAoqHgIoGAAACioeAigZAAAKKq5+AQAABC0ecvEGAHDQAwAAAigaAAAK
+bxsAAApzHAAACoABAAAEfgEAAAQqGn4CAAAEKh4CgAIAAAQqGn4DAAAEKh4CKB0AAAoqLnMIAAAG
+gAMAAAQqAAAAQlNKQgEAAQAAAAAADAAAAHY0LjAuMzAzMTkAAAAABQBsAAAA0AMAACN+AAA8BAAA
+bAUAACNTdHJpbmdzAAAAAKgJAABkBwAAI1VTAAwRAAAQAAAAI0dVSUQAAAAcEQAAcAEAACNCbG9i
+AAAAAAAAAAIAAAFXHaIBCQMAAAD6ATMAFgAAAQAAAB4AAAAFAAAABgAAAAkAAAABAAAAHQAAAAIA
+AAAQAAAAAQAAAAIAAAADAAAABAAAAAEAAAAEAAAAAQAAAAEAAAAAAH8DAQAAAAAABgAlAk8EBgC0
+Ak8EBgBxATwEDwDDBAAABgCeAf0DBgAIAv0DBgDpAf0DBgCbAv0DBgBFAv0DBgBeAv0DBgC1Af0D
+BgDQAewCCgB5Ai4DCgDwAC4DBgC3A7ADBgBUATwEBgA9BbADBgAfBG8EBgAPBOgDDgAkAWkDDgCF
+AWkDDgAMAdMDBgA5AU8ECgBXAy4DEgAFBZsAEgBuAJsABgAIA7ADBgC7ALADBgB3ALADBgBjBf0D
+AAAAACUAAAAAAAEAAQABABAAyAMBADkAAQABAAAAEAB2BNIERQABAAMAAAEQAA8F0gRZAAMABwAD
+AQAAKAUAAD0ABAAKABEAvANyABEA4AB2ABEAXgB6AAYGTQB+AFaAGAWBAFaAwACBAFAgAAAAAIYA
+zgMGAAEA9yAAAAAAhhgvBAYAAQD/IAAAAACDGC8EBgABAAchAAAAAJMIGwSFAAEAMyEAAAAAkwjI
+AIoAAQA6IQAAAACTCNQAjwABAEIhAAAAAJYIRAWVAAIASSEAAAAAhhgvBAYAAgBRIQAAAACRGDUE
+mgACAAAAAQDmAgkALwQBABEALwQGABkALwQKACkALwQQADEALwQQADkALwQQAEEALwQQAEkALwQQ
+AFEALwQQAFkALwQQAGEALwQQAGkALwQGAIEALwQGAKkALwQVALkALwQGAHEAIAUgAMEAAQUlAMkA
+pwMqANEA0gIwAIkABgM0ANkANgU4ANEA3AI+AMEAUAUBAHEALwQGAIkALwQGAOEAiQBDAOEAXwVK
+AJEALwRPALEALwQGAAgAFABoAAgAGABtACkAcwDVAC4ACwCtAC4AEwC2AC4AGwDVAC4AIwDeAC4A
+KwAHAS4AMwAHAS4AOwAHAS4AQwDeAC4ASwANAS4AUwAHAS4AWwAkAUMAYwBtAEkAcwDVAGEAewBt
+AGMAawBtABsAAwABAAQAAwAAAB8EngAAAOgAowAAAEgFqAACAAQAAwACAAUABQABAAYABQACAAcA
+BwAEgAAAAQAAAKgdt5EAAAAAAAABAAAABAAAAAAAAAAAAAAAVgBVAAAAAAANAAAAAAAAAAAAAABf
+AA8DAAAAAAQAAAAAAAAAAAAAAFYAsAMAAAAADQAAAAAAAAAAAAAAXwAuAAAAAAAAAAAAAQAAAIAE
+AAAFAAIAAAAAAABTVF9kMDE1YTkyMWEzNDM0ZTE5YWRiN2U0NmIwNTVjYmJjNAA8TW9kdWxlPgBN
+aWNyb3NvZnQuU3FsU2VydmVyLk1hbmFnZWREVFMAdmFsdWVfXwBtc2NvcmxpYgBkZWZhdWx0SW5z
+dGFuY2UAVmFyaWFibGUAUnVudGltZVR5cGVIYW5kbGUAR2V0VHlwZUZyb21IYW5kbGUATWljcm9z
+b2Z0LlNxbFNlcnZlci5EdHMuUnVudGltZQBUeXBlAEZhaWx1cmUAZ2V0X0N1bHR1cmUAc2V0X0N1
+bHR1cmUAcmVzb3VyY2VDdWx0dXJlAFZTVEFSVFNjcmlwdE9iamVjdE1vZGVsQmFzZQBBcHBsaWNh
+dGlvblNldHRpbmdzQmFzZQBFZGl0b3JCcm93c2FibGVTdGF0ZQBDb21waWxlckdlbmVyYXRlZEF0
+dHJpYnV0ZQBEZWJ1Z2dlck5vblVzZXJDb2RlQXR0cmlidXRlAERlYnVnZ2FibGVBdHRyaWJ1dGUA
+RWRpdG9yQnJvd3NhYmxlQXR0cmlidXRlAEFzc2VtYmx5VGl0bGVBdHRyaWJ1dGUAQXNzZW1ibHlU
+cmFkZW1hcmtBdHRyaWJ1dGUAVGFyZ2V0RnJhbWV3b3JrQXR0cmlidXRlAEFzc2VtYmx5Q29uZmln
+dXJhdGlvbkF0dHJpYnV0ZQBBc3NlbWJseURlc2NyaXB0aW9uQXR0cmlidXRlAENvbXBpbGF0aW9u
+UmVsYXhhdGlvbnNBdHRyaWJ1dGUAQXNzZW1ibHlQcm9kdWN0QXR0cmlidXRlAEFzc2VtYmx5Q29w
+eXJpZ2h0QXR0cmlidXRlAFNTSVNTY3JpcHRUYXNrRW50cnlQb2ludEF0dHJpYnV0ZQBBc3NlbWJs
+eUNvbXBhbnlBdHRyaWJ1dGUAUnVudGltZUNvbXBhdGliaWxpdHlBdHRyaWJ1dGUAZ2V0X1ZhbHVl
+AHNldF9WYWx1ZQB2YWx1ZQBTeXN0ZW0uUnVudGltZS5WZXJzaW9uaW5nAFRvU3RyaW5nAE1pY3Jv
+c29mdC5TcWxTZXJ2ZXIuU2NyaXB0VGFzawBNaWNyb3NvZnQuU3FsU2VydmVyLkR0cy5UYXNrcy5T
+Y3JpcHRUYXNrAFNjcmlwdE9iamVjdE1vZGVsAFN5c3RlbS5Db21wb25lbnRNb2RlbABTVF9kMDE1
+YTkyMWEzNDM0ZTE5YWRiN2U0NmIwNTVjYmJjNC5kbGwAZ2V0X0l0ZW0AU3lzdGVtAEVudW0AcmVz
+b3VyY2VNYW4AU2NyaXB0TWFpbgBTeXN0ZW0uQ29uZmlndXJhdGlvbgBTeXN0ZW0uR2xvYmFsaXph
+dGlvbgBTeXN0ZW0uUmVmbGVjdGlvbgBDdWx0dXJlSW5mbwBnZXRfUmVzb3VyY2VNYW5hZ2VyAC5j
+dG9yAC5jY3RvcgBTeXN0ZW0uRGlhZ25vc3RpY3MAU3lzdGVtLlJ1bnRpbWUuQ29tcGlsZXJTZXJ2
+aWNlcwBTeXN0ZW0uUmVzb3VyY2VzAFNUX2QwMTVhOTIxYTM0MzRlMTlhZGI3ZTQ2YjA1NWNiYmM0
+LlByb3BlcnRpZXMuUmVzb3VyY2VzLnJlc291cmNlcwBEZWJ1Z2dpbmdNb2RlcwBTVF9kMDE1YTky
+MWEzNDM0ZTE5YWRiN2U0NmIwNTVjYmJjNC5Qcm9wZXJ0aWVzAGdldF9WYXJpYWJsZXMAU2V0dGlu
+Z3MAU3VjY2VzcwBnZXRfRHRzAFNjcmlwdFJlc3VsdHMAQ29uY2F0AE9iamVjdABnZXRfRGVmYXVs
+dABzZXRfVGFza1Jlc3VsdABnZXRfQXNzZW1ibHkAACVVAHMAZQByADoAOgBEAGEAdABhAGIAYQBz
+AGUATgBhAG0AZQAAS1MARQBMAEUAQwBUACAAQABAAHMAZQByAHYAZQByAG4AYQBtAGUAIABBAFMA
+IABTAGUAcgB2AGUAcgBOAGEAbQBlACwAIABOACcAAYSJJwAgAEEAUwAgAEQAYQB0AGEAYgBhAHMA
+ZQBOAGEAbQBlACwAIABzAC4AbgBhAG0AZQAgAEEAUwAgAFQAYQBiAGwAZQBTAGMAaABlAG0AYQAs
+ACAAdAAuAG4AYQBtAGUAIABBAFMAIABUAGEAYgBsAGUATgBhAG0AZQAsACAAYwAuAGMAbwBsAHUA
+bQBuAF8AaQBkACAAQQBTACAAQwBvAGwAdQBtAG4ATgB1AG0AYgBlAHIALAAgAGMALgBuAGEAbQBl
+ACAAQQBTACAAQwBvAGwAdQBtAG4ATgBhAG0AZQAsACAAdAB5AHAALgBuAGEAbQBlACAAKwAgAGkA
+cwBuAHUAbABsACgAJwAoACcAIAArACAAQwBBAFMARQAgAFcASABFAE4AIAB0AHkAcAAuAG4AYQBt
+AGUAIABMAEkASwBFACAAJwAlAGMAaABhAHIAJwAgAE8AUgAgAHQAeQBwAC4AbgBhAG0AZQAgAEwA
+SQBLAEUAIAAnACUAYgBpAG4AYQByAHkAJwAgAFQASABFAE4AIABDAEEAUwBFACAAVwBIAEUATgAg
+AGMALgBtAGEAeABfAGwAZQBuAGcAdABoACAAPQAgAC0AMQAgAFQASABFAE4AIAAnAG0AYQB4ACcA
+IABXAEgARQBOACAAdAB5AHAALgBuAGEAbQBlACAATABJAEsARQAgACcAbgAlACcAIABUAEgARQBO
+ACAAYwBhAHMAdAAoAGMALgBtAGEAeABfAGwAZQBuAGcAdABoACAALwAgADIAIABBAFMAIABuAHYA
+YQByAGMAaABhAHIAKAAxADEAKQApACAARQBMAFMARQAgAGMAYQBzAHQAKABjAC4AbQBhAHgAXwBs
+AGUAbgBnAHQAaAAgAEEAUwAgAG4AdgBhAHIAYwBoAGEAcgAoADEAMQApACkAIABFAE4ARAAgAFcA
+SABFAE4AIAB0AHkAcAAuAG4AYQBtAGUAIABJAE4AKAAnAGQAYQB0AGUAdABpAG0AZQAyACcALAAg
+ACcAdABpAG0AZQAnACwAIAAnAGQAYQB0AGUAdABpAG0AZQBvAGYAZgBzAGUAdAAnACkAIABUAEgA
+RQBOACAAYwBhAHMAdAAoAGMALgBzAGMAYQBsAGUAIABBAFMAIABuAHYAYQByAGMAaABhAHIAKAAx
+ADEAKQApACAAVwBIAEUATgAgAHQAeQBwAC4AbgBhAG0AZQAgAD0AIAAnAGQAZQBjAGkAbQBhAGwA
+JwAgAFQASABFAE4AIABjAGEAcwB0ACgAYwAuAHAAcgBlAGMAaQBzAGkAbwBuACAAQQBTACAAbgB2
+AGEAcgBjAGgAYQByACgAMQAxACkAKQAgACsAIAAnACwAJwAgACsAIABjAGEAcwB0ACgAYwAuAHMA
+YwBhAGwAZQAgAEEAUwAgAG4AdgBhAHIAYwBoAGEAcgAoADEAMQApACkAIABFAE4ARAAgACsAIAAn
+ACkAJwAsACAAJwAnACkAIABBAFMAIABEAGEAdABhAFQAeQBwAGUAIABGAFIATwBNACAAWwABN10A
+LgBzAHkAcwAuAHQAYQBiAGwAZQBzACAAdAAgAEkATgBOAEUAUgAgAEoATwBJAE4AIABbAABzXQAu
+AHMAeQBzAC4AcwBjAGgAZQBtAGEAcwAgAHMAIABPAE4AIAB0AC4AcwBjAGgAZQBtAGEAXwBpAGQA
+IAA9ACAAcwAuAHMAYwBoAGUAbQBhAF8AaQBkACAASQBOAE4ARQBSACAASgBPAEkATgAgAFsAAHNd
+AC4AcwB5AHMALgBjAG8AbAB1AG0AbgBzACAAYwAgAE8ATgAgAHQALgBvAGIAagBlAGMAdABfAGkA
+ZAAgAD0AIABjAC4AbwBiAGoAZQBjAHQAXwBpAGQAIABJAE4ATgBFAFIAIABKAE8ASQBOACAAWwAA
+gKNdAC4AcwB5AHMALgB0AHkAcABlAHMAIAB0AHkAcAAgAE8ATgAgAGMALgB1AHMAZQByAF8AdAB5
+AHAAZQBfAGkAZAAgAD0AIAB0AHkAcAAuAHUAcwBlAHIAXwB0AHkAcABlAF8AaQBkACAAVwBIAEUA
+UgBFACAAdAAuAGkAcwBfAG0AcwBfAHMAaABpAHAAcABlAGQAIAA9ACAAMAAgADsAIAAALVUAcwBl
+AHIAOgA6AFMAcQBsAEMAbwBtAG0AYQBuAGQAUwB0AHIAaQBuAGcAAHFTAFQAXwBkADAAMQA1AGEA
+OQAyADEAYQAzADQAMwA0AGUAMQA5AGEAZABiADcAZQA0ADYAYgAwADUANQBjAGIAYgBjADQALgBQ
+AHIAbwBwAGUAcgB0AGkAZQBzAC4AUgBlAHMAbwB1AHIAYwBlAHMAAADMJkD+ImVYSLPjU7Zuew12
+AAQgAQEIAyAAAQUgAQEREQQgAQEOBSABARFRBAcCDg4EIAASYQQgABJlBSABEmkcAyAAHAMgAA4F
+AAEOHQ4EIAEBHAYAARJxEXUEIAASeQYgAgEOEnkIt3pcVhk04IkIiYRdzYCAzJEEAAAAAAQBAAAA
+AwYSSQMGEk0DBhIQAgYIAwYRFAQAABJJBAAAEk0FAAEBEk0EAAASEAMAAAEECAASSQQIABJNBAgA
+EhAIAQAIAAAAAAAeAQABAFQCFldyYXBOb25FeGNlcHRpb25UaHJvd3MBCAEAAgAAAAAAKAEAI1NU
+X2QwMTVhOTIxYTM0MzRlMTlhZGI3ZTQ2YjA1NWNiYmM0AAAFAQAAAAAWAQARQ29weXJpZ2h0IEAg
+IDIwMjAAAEkBABouTkVURnJhbWV3b3JrLFZlcnNpb249djQuNQEAVA4URnJhbWV3b3JrRGlzcGxh
+eU5hbWUSLk5FVCBGcmFtZXdvcmsgNC41AAC0AAAAzsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJj
+ZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1
+dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSNTeXN0ZW0uUmVzb3VyY2VzLlJ1
+bnRpbWVSZXNvdXJjZVNldAIAAAAAAAAAAAAAAFBBRFBBRFC0AAAAzDQAAAAAAAAAAAAA5jQAAAAg
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAANg0AAAAAAAAAAAAAAAAX0NvckRsbE1haW4AbXNjb3JlZS5k
+bGwAAAAAAP8lACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAABABAAAAAYAACAAAAAAAAAAAAAAAAAAAABAAEAAAAwAACAAAAAAAAAAAAAAAAAAAABAAAAAABI
+AAAAWEAAABoEAAAAAAAAAAAAABoENAAAAFYAUwBfAFYARQBSAFMASQBPAE4AXwBJAE4ARgBPAAAA
+AAC9BO/+AAABAAAAAQC3kagdAAABALeRqB0/AAAAAAAAAAQAAAACAAAAAAAAAAAAAAAAAAAARAAA
+AAEAVgBhAHIARgBpAGwAZQBJAG4AZgBvAAAAAAAkAAQAAABUAHIAYQBuAHMAbABhAHQAaQBvAG4A
+AAAAAAAAsAR6AwAAAQBTAHQAcgBpAG4AZwBGAGkAbABlAEkAbgBmAG8AAABWAwAAAQAwADAAMAAw
+ADAANABiADAAAAAaAAEAAQBDAG8AbQBtAGUAbgB0AHMAAAAAAAAAIgABAAEAQwBvAG0AcABhAG4A
+eQBOAGEAbQBlAAAAAAAAAAAAcAAkAAEARgBpAGwAZQBEAGUAcwBjAHIAaQBwAHQAaQBvAG4AAAAA
+AFMAVABfAGQAMAAxADUAYQA5ADIAMQBhADMANAAzADQAZQAxADkAYQBkAGIANwBlADQANgBiADAA
+NQA1AGMAYgBiAGMANAAAAD4ADwABAEYAaQBsAGUAVgBlAHIAcwBpAG8AbgAAAAAAMQAuADAALgA3
+ADUAOQAyAC4AMwA3ADMAMAAzAAAAAABwACgAAQBJAG4AdABlAHIAbgBhAGwATgBhAG0AZQAAAFMA
+VABfAGQAMAAxADUAYQA5ADIAMQBhADMANAAzADQAZQAxADkAYQBkAGIANwBlADQANgBiADAANQA1
+AGMAYgBiAGMANAAuAGQAbABsAAAASAASAAEATABlAGcAYQBsAEMAbwBwAHkAcgBpAGcAaAB0AAAA
+QwBvAHAAeQByAGkAZwBoAHQAIABAACAAIAAyADAAMgAwAAAAKgABAAEATABlAGcAYQBsAFQAcgBh
+AGQAZQBtAGEAcgBrAHMAAAAAAAAAAAB4ACgAAQBPAHIAaQBnAGkAbgBhAGwARgBpAGwAZQBuAGEA
+bQBlAAAAUwBUAF8AZAAwADEANQBhADkAMgAxAGEAMwA0ADMANABlADEAOQBhAGQAYgA3AGUANAA2
+AGIAMAA1ADUAYwBiAGIAYwA0AC4AZABsAGwAAABoACQAAQBQAHIAbwBkAHUAYwB0AE4AYQBtAGUA
+AAAAAFMAVABfAGQAMAAxADUAYQA5ADIAMQBhADMANAAzADQAZQAxADkAYQBkAGIANwBlADQANgBi
+ADAANQA1AGMAYgBiAGMANAAAAEIADwABAFAAcgBvAGQAdQBjAHQAVgBlAHIAcwBpAG8AbgAAADEA
+LgAwAC4ANwA1ADkAMgAuADMANwAzADAAMwAAAAAARgAPAAEAQQBzAHMAZQBtAGIAbAB5ACAAVgBl
+AHIAcwBpAG8AbgAAADEALgAwAC4ANwA1ADkAMgAuADMANwAzADAAMwAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAwAAAD4NAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
+                </ScriptProject>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata.PrecedenceConstraints[Constraint]"
+              DTS:CreationName=""
+              DTS:DTSID="{2680119C-5AD1-4E7D-B813-C3333F02E0BA}"
+              DTS:From="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Set SQL Command String"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint"
+              DTS:To="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata" />
+          </DTS:PrecedenceConstraints>
+          <DTS:ForEachVariableMappings>
+            <DTS:ForEachVariableMapping
+              DTS:CreationName=""
+              DTS:DTSID="{2FB0D727-BE05-4152-AB91-6854DBD796D9}"
+              DTS:ObjectName="{2FB0D727-BE05-4152-AB91-6854DBD796D9}"
+              DTS:ValueIndex="0"
+              DTS:VariableName="User::DatabaseName" />
+          </DTS:ForEachVariableMappings>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Extract EDW Gaming Tables and Columns.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{1599F924-4842-41E1-9B3C-C5D9E650F48C}"
+          DTS:From="Package\Extract EDW Gaming Tables and Columns\Get Database List"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Merge Staging to SqlDatabase"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{98BA06FE-C662-4A9F-9236-2456DA7442BB}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Merge Staging to SqlDatabase"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D923472F-BB07-49E9-8047-33750147D228}"
+          SQLTask:SqlStatementSource="INSERT Metadata.SqlDatabase (&#xA;&#x9;DatabaseName,&#xA;&#x9;ServerID&#xA;)&#xA;SELECT&#xA;&#x9;stg.DatabaseName, svr.ServerID&#xA;FROM EtlOps.StageDatabase stg&#xA;&#x9;INNER JOIN Metadata.HostServer svr&#xA;&#x9;ON stg.ServerName = svr.HostServerName&#xA;WHERE NOT EXISTS (&#xA;&#x9;SELECT 1 FROM Metadata.SqlDatabase tgt&#xA;&#x9;WHERE&#xA;&#x9;&#x9;tgt.DatabaseName = stg.DatabaseName&#xA;&#x9;&#x9;AND tgt.ServerID = svr.ServerID&#xA;)&#xA;;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Stage Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{5B12E54E-0206-4B16-A157-BBB595AF9F16}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Stage Table"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D923472F-BB07-49E9-8047-33750147D228}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE EtlOps.StageDatabase;&#xA;TRUNCATE TABLE EtlOps.StageTableMetadata;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{877A466A-9A93-4E23-91F2-DE113D7A7FA1}"
+      DTS:From="Package\Truncate Stage Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Extract EDW Gaming DBs" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{9BC0D753-0972-42DF-B247-6FB38B10E440}"
+      DTS:From="Package\Extract EDW Gaming DBs"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Merge Staging to SqlDatabase" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{1D3EC0FD-E7E8-43F1-B901-70B8E6AC9000}"
+      DTS:From="Package\Merge Staging to SqlDatabase"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Extract EDW Gaming Tables and Columns" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="178.4,41.6"
+          Id="Package\Extract EDW Gaming DBs\Get Active Databases"
+          TopLeft="13.3714305566279,8.47058989118953" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="222.4,104.8"
+          Size="222.4,148"
+          Id="Package\Extract EDW Gaming DBs"
+          TopLeft="103.42857318995,74.0235304499168" />
+        <NodeLayout
+          Size="161.6,41.6"
+          Id="Package\Extract EDW Gaming Tables and Columns\Get Database List"
+          TopLeft="51.5428592740274,3.7647102322959" />
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata"
+          TopLeft="28.5714304203887,82.3731160584856" />
+        <NodeLayout
+          Size="197.6,41.6"
+          Id="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Set SQL Command String"
+          TopLeft="22.0408180642751,5.33109890857196" />
+        <EdgeLayout
+          Id="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata.PrecedenceConstraints[Constraint]"
+          TopLeft="117.506124242332,46.931098908572">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35.4420171499136"
+              Start="0,0"
+              End="0,27.9420171499136">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.9420171499136" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="254.4,179.2"
+          Size="254.4,222.4"
+          Id="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata"
+          TopLeft="11.5428585928315,74.8705932458793" />
+        <EdgeLayout
+          Id="Package\Extract EDW Gaming Tables and Columns.PrecedenceConstraints[Constraint]"
+          TopLeft="135.542858933429,45.3647102322959">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.5058830135834"
+              Start="0,0"
+              End="0,22.0058830135834">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.0058830135834" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="287.2,352"
+          Size="287.2,395.2"
+          Id="Package\Extract EDW Gaming Tables and Columns"
+          TopLeft="68.571429739193,321.176475092614" />
+        <NodeLayout
+          Size="220,41.6"
+          Id="Package\Merge Staging to SqlDatabase"
+          TopLeft="97.1428587971902,250.82353292947" />
+        <NodeLayout
+          Size="179.2,41.6"
+          Id="Package\Truncate Stage Table"
+          TopLeft="123.428573530547,4.89411771569699" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="213.828573360249,46.494117715697">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,27.5294127342198"
+              Start="0,0"
+              End="0,20.0294127342198">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.0294127342198" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="210.88571599357,222.023530449917">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.8000024795532"
+              Start="0,0"
+              End="0,21.3000024795532">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.3000024795532" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="209.657144268192,292.42353292947">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.7529421631439"
+              Start="0,0"
+              End="0,21.2529421631439">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.2529421631439" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Extract EDW Gaming DBs\Get Active Databases">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="172.8,41.6"
+          Id="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table"
+          TopLeft="329.714291329287,198.211767485728" />
+        <NodeLayout
+          Size="178.4,41.6"
+          Id="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases"
+          TopLeft="327.428577004647,121.1294134635" />
+        <EdgeLayout
+          Id="Package\Extract EDW Gaming DBs\Get Active Databases.Paths[OLE DB Source Output]"
+          TopLeft="416.371434166967,162.7294134635">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35.4823540222273"
+              Start="0,0"
+              End="0,27.9823540222273">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.9823540222273" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Extract EDW Gaming DBs\Get Active Databases\Get Active Databases">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Extract EDW Gaming DBs\Get Active Databases\Load to Stage Table">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="180.8,41.6"
+          Id="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata"
+          TopLeft="319.428576868408,195.152943913417" />
+        <NodeLayout
+          Size="186.4,41.6"
+          Id="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata"
+          TopLeft="312.000005313328,124.188237035811" />
+        <EdgeLayout
+          Id="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata.Paths[OLE DB Source Output]"
+          TopLeft="407.514291090868,165.788237035811">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.3647068776062"
+              Start="0,0"
+              End="0,21.8647068776062">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.8647068776062" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Source Table Metadata">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Extract EDW Gaming Tables and Columns\Get Table and Column Metadata\Get Table Metadata\Stage Table Metadata">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

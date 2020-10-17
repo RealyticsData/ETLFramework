@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>ETLFramework_DB</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{e48f620f-7547-4981-a069-f79735c61a02}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>ETLFramework_DB</RootNamespace>
+    <AssemblyName>ETLFramework_DB</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Tables\" />
+    <Folder Include="Schemas" />
+    <Folder Include="Stored Procedures" />
+    <Folder Include="RecordPopulation" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\EtlOps.DataSetLog.sql" />
+    <Build Include="Tables\Metadata.LogicalServer.sql" />
+    <Build Include="Tables\Metadata.DatabaseType.sql" />
+    <Build Include="Tables\Metadata.SqlDatabase.sql" />
+    <Build Include="Tables\Metadata.ServerEnvironment.sql" />
+    <Build Include="Tables\Metadata.HostServer.sql" />
+    <Build Include="Tables\Org.BusinessSegment.sql" />
+    <Build Include="Tables\Org.BusinessUnit.sql" />
+    <Build Include="Tables\Org.BusinessLocation.sql" />
+    <Build Include="Tables\Org.BusinessLocationSegment.sql" />
+    <Build Include="Tables\Org.SecurityFilter.sql" />
+    <Build Include="Tables\Framework.DataSet.sql" />
+    <Build Include="Tables\Metadata.DatabaseTable.sql" />
+    <Build Include="Tables\Metadata.DataDestinationTable.sql" />
+    <Build Include="Tables\Metadata.DataSourceColumnMapTemplate.sql" />
+    <Build Include="Tables\Metadata.Orchestration.sql" />
+    <Build Include="Tables\Metadata.OrchestrationDataSet.sql" />
+    <Build Include="Tables\Metadata.DataSource.sql" />
+    <Build Include="Tables\Metadata.DataSourceColumnMap.sql" />
+    <Build Include="Tables\Framework.DataDestination.sql" />
+    <Build Include="Tables\EtlOps.EtlControl.sql" />
+    <Build Include="Tables\Framework.DataTransformation.sql" />
+    <Build Include="Tables\Framework.DataDestinationKey.sql" />
+    <Build Include="Tables\Metadata.DatabaseTableColumn.sql" />
+    <Build Include="Tables\Framework.DataDestinationColumn.sql" />
+    <Build Include="Tables\EtlOps.OrchestrationLog.sql" />
+    <Build Include="Schemas\EtlOps.sql" />
+    <Build Include="Schemas\Metadata.sql" />
+    <Build Include="Schemas\Org.sql" />
+    <Build Include="Schemas\Xform.sql" />
+    <Build Include="Tables\EtlOps.StageTableMetadata.sql" />
+    <Build Include="Stored Procedures\EtlMaintenance.CheckDatabaseCDC.sql" />
+    <Build Include="Stored Procedures\EtlMaintenance.CheckTableCDC.sql" />
+    <Build Include="Stored Procedures\EtlMaintenance.BuildWrapperFunction.sql" />
+    <Build Include="Stored Procedures\EtlMaintenance.ResetControlDate.sql" />
+    <Build Include="Tables\EtlOps.StageTableCdc.sql" />
+    <Build Include="Schemas\PendingRemoval.sql" />
+    <Build Include="Schemas\Temp.sql" />
+    <Build Include="Schemas\EtlMaintenance.sql" />
+    <Build Include="Tables\EtlOps.FrameworkConfiguration.sql" />
+    <Build Include="Stored Procedures\EtlOps.BuildStageTable.sql" />
+    <Build Include="Stored Procedures\EtlOps.BuildAggregationStageTables.sql" />
+    <Build Include="Stored Procedures\EtlOps.BuildSCDStageTables.sql" />
+    <Build Include="Stored Procedures\Framework.LoadStageData.sql" />
+    <Build Include="Stored Procedures\Framework.RankSCDDataSet.sql" />
+    <Build Include="Stored Procedures\Framework.MergeStageToEDW.sql" />
+    <Build Include="Stored Procedures\Framework.AggregateDataSet.sql" />
+    <Build Include="Stored Procedures\Framework.TransformRankedSCD.sql" />
+    <Build Include="Tables\Metadata.DataSetParent.sql" />
+    <Build Include="Tables\EtlOps.StageDatabase.sql" />
+    <Build Include="Stored Procedures\Metadata.MergeDatabaseTable.sql" />
+    <Build Include="Schemas\Biml.sql" />
+    <Build Include="Stored Procedures\Framework.TransformMergedEDW.sql" />
+    <Build Include="Stored Procedures\Biml.GetOrchestrationDataSets.sql" />
+    <Build Include="Stored Procedures\Biml.GetDataSetDataSources.sql" />
+    <Build Include="Stored Procedures\Framework.StartOrchestrationSession.sql" />
+    <Build Include="Stored Procedures\Framework.EndOrchestrationSession.sql" />
+    <Build Include="Stored Procedures\Framework.StartDataSetSession.sql" />
+    <Build Include="Stored Procedures\Framework.EndDataSetSession.sql" />
+    <Build Include="Stored Procedures\Biml.GetDataSetPrecedentConstraints.sql" />
+    <Build Include="Stored Procedures\Framework.TruncateStageTables.sql" />
+    <Build Include="Schemas\Framework.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ETLFramework_DB.publish.xml" />
+    <None Include="DB_SchemaCompare.scmp" />
+    <None Include="Stored Procedures\Framework.TransformStagingData.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="ETLFramework_DB.refactorlog" />
+  </ItemGroup>
+</Project>

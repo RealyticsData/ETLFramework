@@ -1,0 +1,2 @@
+﻿CREATE SCHEMA EtlMaintenance AUTHORIZATION dbo;
+GO

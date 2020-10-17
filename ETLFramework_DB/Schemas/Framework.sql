@@ -1,0 +1,2 @@
+﻿CREATE SCHEMA Framework AUTHORIZATION dbo;
+GO
