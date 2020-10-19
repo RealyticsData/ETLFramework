@@ -63,6 +63,7 @@
     <Folder Include="Schemas" />
     <Folder Include="Stored Procedures" />
     <Folder Include="RecordPopulation" />
+    <Folder Include="Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\EtlOps.DataSetLog.sql" />
@@ -129,6 +130,11 @@
     <Build Include="Schemas\Framework.sql" />
     <Build Include="Stored Procedures\Xform.SetSurrogateKeyReference.sql" />
     <Build Include="Stored Procedures\Xform.SetDestinationKey.sql" />
+    <Build Include="Stored Procedures\Metadata.MergeDatabaseTableColumn.sql" />
+    <Build Include="Views\Metadata.SourceDatabaseColumn_vw.sql" />
+    <Build Include="Views\Metadata.DatamartColumn_vw.sql" />
+    <Build Include="Views\Metadata.DatamartTable_vw.sql" />
+    <Build Include="Views\Metadata.SourceDatabaseTable_vw.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ETLFramework_DB.publish.xml" />
