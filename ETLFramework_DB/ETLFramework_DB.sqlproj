@@ -78,12 +78,12 @@
     <Build Include="Tables\Org.SecurityFilter.sql" />
     <Build Include="Tables\Framework.DataSet.sql" />
     <Build Include="Tables\Metadata.DatabaseTable.sql" />
-    <Build Include="Tables\Metadata.DataDestinationTable.sql" />
-    <Build Include="Tables\Metadata.DataSourceColumnMapTemplate.sql" />
-    <Build Include="Tables\Metadata.Orchestration.sql" />
-    <Build Include="Tables\Metadata.OrchestrationDataSet.sql" />
-    <Build Include="Tables\Metadata.DataSource.sql" />
-    <Build Include="Tables\Metadata.DataSourceColumnMap.sql" />
+    <Build Include="Tables\Framework.DataDestinationTable.sql" />
+    <Build Include="Tables\Framework.DataSourceColumnMapTemplate.sql" />
+    <Build Include="Tables\Framework.Orchestration.sql" />
+    <Build Include="Tables\Framework.OrchestrationDataSet.sql" />
+    <Build Include="Tables\Framework.DataSource.sql" />
+    <Build Include="Tables\Framework.DataSourceColumnMap.sql" />
     <Build Include="Tables\Framework.DataDestination.sql" />
     <Build Include="Tables\EtlOps.EtlControl.sql" />
     <Build Include="Tables\Framework.DataTransformation.sql" />
@@ -113,7 +113,7 @@
     <Build Include="Stored Procedures\Framework.MergeStageToEDW.sql" />
     <Build Include="Stored Procedures\Framework.AggregateDataSet.sql" />
     <Build Include="Stored Procedures\Framework.TransformRankedSCD.sql" />
-    <Build Include="Tables\Metadata.DataSetParent.sql" />
+    <Build Include="Tables\Framework.DataSetParent.sql" />
     <Build Include="Tables\EtlOps.StageDatabase.sql" />
     <Build Include="Stored Procedures\Metadata.MergeDatabaseTable.sql" />
     <Build Include="Schemas\Biml.sql" />
@@ -127,6 +127,8 @@
     <Build Include="Stored Procedures\Biml.GetDataSetPrecedentConstraints.sql" />
     <Build Include="Stored Procedures\Framework.TruncateStageTables.sql" />
     <Build Include="Schemas\Framework.sql" />
+    <Build Include="Stored Procedures\Xform.SetSurrogateKeyReference.sql" />
+    <Build Include="Stored Procedures\Xform.SetDestinationKey.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ETLFramework_DB.publish.xml" />
