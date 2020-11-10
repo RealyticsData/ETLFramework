@@ -17,9 +17,6 @@ SELECT
 	dbt.DatabaseTypeDescription,
 	tbl.TableSchema,
 	tbl.TableName,
-	tbl.IsReplicated,
-	tbl.ReplicationSubscription,
-	tbl.IsCDCEnabled,
 	col.ColumnNumber,
 	col.ColumnName,
 	col.DataType

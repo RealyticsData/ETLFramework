@@ -1,13 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <IsPackageEditorCompactDisplayModeEnabled>False</IsPackageEditorCompactDisplayModeEnabled>
+    <IsTemplateAutoUpdatePreviewEnabled>True</IsTemplateAutoUpdatePreviewEnabled>
+    <IsTemplateCheckBimlSyntaxEnabled>True</IsTemplateCheckBimlSyntaxEnabled>
+    <IsTemplateAutoFormatXmlEnabled>True</IsTemplateAutoFormatXmlEnabled>
+    <IsBuildDocumentationEnabled>False</IsBuildDocumentationEnabled>
     <DebugBundles />
     <AddedXmlFilesPath>addedBiml</AddedXmlFilesPath>
     <CompilationOutputPath>output</CompilationOutputPath>
     <DocumentationOutputPath>documentation</DocumentationOutputPath>
     <IsWarnAsErrorEnabled>False</IsWarnAsErrorEnabled>
     <WarningLevel>4</WarningLevel>
-    <IsBuildDocumentationEnabled>False</IsBuildDocumentationEnabled>
     <IsCleanOutputFolderEnabled>True</IsCleanOutputFolderEnabled>
     <IsCleanDocumentationFolderEnabled>False</IsCleanDocumentationFolderEnabled>
     <AdfBuildMode>ArmTemplate, MultipleJsonFiles</AdfBuildMode>
@@ -19,11 +23,7 @@
     <UseProjectDeploymentModel>True</UseProjectDeploymentModel>
     <ExtraCommandLineOptions />
     <ExtraBimlcCommandLineOptions />
-    <IsPackageEditorCompactDisplayModeEnabled>False</IsPackageEditorCompactDisplayModeEnabled>
     <IsAutoUpdateDocumentationPreviewEnabled>True</IsAutoUpdateDocumentationPreviewEnabled>
-    <IsTemplateAutoUpdatePreviewEnabled>True</IsTemplateAutoUpdatePreviewEnabled>
-    <IsTemplateCheckBimlSyntaxEnabled>True</IsTemplateCheckBimlSyntaxEnabled>
-    <IsTemplateAutoFormatXmlEnabled>True</IsTemplateAutoFormatXmlEnabled>
     <EmitDocumentationAnnotations>True</EmitDocumentationAnnotations>
     <EmitCodeCommentAnnotations>False</EmitCodeCommentAnnotations>
     <EmitTagAnnotations>False</EmitTagAnnotations>
@@ -40,11 +40,23 @@
     <IsBackgroundProcessingSuspended>False</IsBackgroundProcessingSuspended>
   </PropertyGroup>
   <ItemGroup>
-    <RootFolder Include="..\">
+    <RootFolder Include=" ">
       <RootFolderId>0</RootFolderId>
     </RootFolder>
   </ItemGroup>
   <ItemGroup>
+    <Live Include="addedBiml\Connections\EDW Gaming.biml">
+      <RootFolderId>0</RootFolderId>
+    </Live>
+    <Live Include="addedBiml\Connections\ETLFramework.biml">
+      <RootFolderId>0</RootFolderId>
+    </Live>
+    <Live Include="addedBiml\Packages\Get DB Metadata.biml">
+      <RootFolderId>0</RootFolderId>
+    </Live>
+    <Live Include="addedBiml\Projects\ETLFramework_SSIS.biml">
+      <RootFolderId>0</RootFolderId>
+    </Live>
     <None Include="ETLFramework.bimlproj">
       <RootFolderId>0</RootFolderId>
     </None>

@@ -156,4 +156,11 @@
     <Property Name="NewSchema" Value="Framework" />
     <Property Name="IsNewSchemaExternal" Value="False" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="a5251fed-7f47-4024-9366-efe73ddb075a" ChangeDateTime="10/19/2020 18:17:28">
+    <Property Name="ElementName" Value="[Metadata].[ServerEnvironment].[ServerEnvironmentAbbreviation]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Metadata].[ServerEnvironment]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ServerEnvironmentCode" />
+  </Operation>
 </Operations>

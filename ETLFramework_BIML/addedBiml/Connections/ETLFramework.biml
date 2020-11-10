@@ -1,0 +1,5 @@
+﻿<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+  <Connections>
+    <Connection Name="ETLFramework" ConnectionString="Data Source=P10WINSQLS06;Initial Catalog=Sandbox;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+  </Connections>
+</Biml>

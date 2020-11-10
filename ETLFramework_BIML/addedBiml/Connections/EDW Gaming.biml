@@ -1,0 +1,5 @@
+﻿<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+  <Connections>
+    <Connection Name="EDW Gaming" ConnectionString="Data Source=P10WINSQLS08;Initial Catalog=master;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+  </Connections>
+</Biml>

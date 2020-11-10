@@ -1,0 +1,16 @@
+﻿<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+  <Projects>
+    <PackageProject Name="ETLFramework_SSIS">
+      <Packages>
+        <Package PackageName="Get DB Metadata" />
+      </Packages>
+      <Parameters>
+        <Parameter Name="ETLFrameworkServer" DataType="String">P10WINSQLS06</Parameter>
+        <Parameter Name="ETLFrameworkDatabase" DataType="String">Sandbox</Parameter>
+      </Parameters>
+      <Connections>
+        <Connection ConnectionName="ETLFramework" />
+      </Connections>
+    </PackageProject>
+  </Projects>
+</Biml>
