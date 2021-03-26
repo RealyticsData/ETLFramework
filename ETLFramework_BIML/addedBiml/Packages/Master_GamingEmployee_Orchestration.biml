@@ -1,0 +1,15 @@
+﻿    <Package Name="Master_GamingEmployee_Orchestration" Language="None">
+      <Tasks>
+  		<Container Name="Miscellaneous Category" ConstraintMode="LinearOnCompletion">
+          <PrecedenceConstraints>
+            <Inputs>
+            </Inputs>
+          </PrecedenceConstraints>
+          <Tasks>
+            <ExecutePackage Name="Execute CDS_User">
+              <ExternalProjectPackage Package="CDS_User_18.dtsx" />
+            </ExecutePackage>
+          </Tasks>
+        </Container>		
+      </Tasks>
+    </Package>

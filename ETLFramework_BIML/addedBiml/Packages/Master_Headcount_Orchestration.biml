@@ -1,0 +1,10 @@
+﻿<Package Name="Master_Headcount_Orchestration" Language="None" >
+	  <Tasks>
+	    <ExecutePackage Name="SlotFloorMinute">
+	      <ExternalProjectPackage Package="SlotFloorMinute_34.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="SlotMinute">
+	      <ExternalProjectPackage Package="SlotMinute_32.dtsx" />
+	    </ExecutePackage>
+	  </Tasks>
+</Package>

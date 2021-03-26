@@ -1,0 +1,110 @@
+﻿    <Package Name="Master_PlayerAncillary_Orchestration" Language="None">
+      <Tasks>
+        
+		 
+       
+        <Container Name="Player ODS Category" ConstraintMode="LinearOnCompletion">
+
+          <Tasks>
+
+            <ExecutePackage Name="Execute PlayerMemoType">
+              <ExternalProjectPackage Package="PlayerMemoType_6.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="Execute PlayerExclusionType">
+              <ExternalProjectPackage Package="PlayerExclusionType_7.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="Execute PlayerMemo">
+              <ExternalProjectPackage Package="PlayerMemo_15.dtsx" />
+            </ExecutePackage>
+			<ExecutePackage Name="Execute PatronMemoComments">
+				<ExternalProjectPackage Package="PatronMemoComments_8.dtsx" />
+            </ExecutePackage>
+			
+			     <ExecutePackage Name="Execute MGT_Email">
+              	<ExternalProjectPackage Package="MGT_Email_14.dtsx" />
+            	</ExecutePackage>
+			
+          </Tasks>
+        </Container>
+
+    <Container Name="Loyalty Category" ConstraintMode="LinearOnCompletion">
+        <Tasks>             
+
+		  <ExecutePackage Name="Execute UC_PL_Address">              
+		  <ExternalProjectPackage Package="UC_PL_Address_200.dtsx" />              
+		  </ExecutePackage>              
+
+          <ExecutePackage Name="Execute UC_X_AddressType">              
+		  <ExternalProjectPackage Package="UC_X_AddressType_228.dtsx" />        
+		  </ExecutePackage>
+
+          <ExecutePackage Name="Execute UC_PL_Phone">              
+		  <ExternalProjectPackage Package="UC_PL_Phone_201.dtsx" />                       
+		  </ExecutePackage>                  
+
+          <ExecutePackage Name="Execute UC_PL_PhysicalDesc">              
+		  <ExternalProjectPackage Package="UC_PL_PhysicalDesc_202.dtsx" />                  
+		  </ExecutePackage>    
+
+          <ExecutePackage Name="Execute UC_PL_Email">              
+		  <ExternalProjectPackage Package="UC_PL_Email_203.dtsx" />                        
+		  </ExecutePackage>                  
+
+          <ExecutePackage Name="Execute UC_PL_StatusCode">              
+		  <ExternalProjectPackage Package="UC_PL_StatusCode_219.dtsx" />                    
+		  </ExecutePackage>            
+
+    	<ExecutePackage Name="Execute UC_X_StateCode">              
+		  <ExternalProjectPackage Package="UC_X_StateCode_220.dtsx" />                    
+		  </ExecutePackage>                
+ 
+			<ExecutePackage Name="Execute Host_Loyalty">              
+		  <ExternalProjectPackage Package="Host_Loyalty_224.dtsx" />                
+		  </ExecutePackage>                  
+
+          <ExecutePackage Name="Execute UC_PL_PlayerHost">              
+		  <ExternalProjectPackage Package="UC_PL_PlayerHost_204.dtsx" />                  
+		  </ExecutePackage>        
+ 
+			<ExecutePackage Name="Execute UC_PL_PlayerHostDetail">              
+		  <ExternalProjectPackage Package="UC_PL_PlayerHostDetail_205.dtsx" />          
+			</ExecutePackage>                   
+	 </Tasks>
+
+</Container>
+
+        <Container Name="Loyalty Status Category" ConstraintMode="LinearOnCompletion">
+          <Tasks>
+            <ExecutePackage Name="Execute UC_X_FlagType">
+              <ExternalProjectPackage Package="UC_X_FlagType_233.dtsx" />
+            </ExecutePackage>
+
+            <ExecutePackage Name="Execute UC_PL_MergedPlayers">
+              <ExternalProjectPackage Package="UC_PL_MergedPlayers_231.dtsx" />
+            </ExecutePackage>
+			
+            <ExecutePackage Name="Execute UC_PUMA_Reg">
+              <ExternalProjectPackage Package="UC_PUMA_Reg_230.dtsx" />
+            </ExecutePackage>			
+
+            <ExecutePackage Name="Execute UC_PL_PlayerFlag">
+              <ExternalProjectPackage Package="UC_PL_PlayerFlag_232.dtsx" />
+            </ExecutePackage>
+
+          </Tasks>
+        </Container>
+
+
+        <Container Name="Group Category" ConstraintMode="LinearOnCompletion">
+          <Tasks>
+            <ExecutePackage Name="Execute PlayerGroup">
+              <ExternalProjectPackage Package="PlayerGroup_10.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="Execute PlayerGroupEnrollment">
+              <ExternalProjectPackage Package="PlayerGroupEnrollment_11.dtsx" />
+            </ExecutePackage>
+          </Tasks>
+        </Container>
+  		
+      </Tasks>
+    </Package>

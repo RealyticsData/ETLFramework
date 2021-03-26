@@ -1,0 +1,48 @@
+﻿<Package Name="Master_Finance_Orchestration" Language="None" >
+	<Tasks>
+		<ExecutePackage Name="FinanceCompany">
+			<ExternalProjectPackage Package="FinanceCompany_45.dtsx" />
+		</ExecutePackage>
+		<ExecutePackage Name="FinanceBusinessUnit">
+			<PrecedenceConstraints>
+				<Inputs>
+					<Input OutputPathName="FinanceCompany.Output" EvaluationValue="Completion" SsisName="FinanceCompany Lookup Constraint" />
+				</Inputs>
+			</PrecedenceConstraints>
+			<ExternalProjectPackage Package="FinanceBusinessUnit_46.dtsx" />
+		</ExecutePackage>
+		<ExecutePackage Name="FinanceAccount">
+			<PrecedenceConstraints>
+				<Inputs>
+					<Input OutputPathName="FinanceBusinessUnit.Output" EvaluationValue="Completion" SsisName="FinanceBusinessUnit FinanceAccount Lookup Constraint" />
+				</Inputs>
+			</PrecedenceConstraints>
+			<ExternalProjectPackage Package="FinanceAccount_47.dtsx" />
+		</ExecutePackage>
+		<ExecutePackage Name="FinanceWorkOrder">
+			<PrecedenceConstraints>
+				<Inputs>
+					<Input OutputPathName="FinanceBusinessUnit.Output" EvaluationValue="Completion" SsisName="FinanceBusinessUnit FinanceWorkOrder Lookup Constraint" />
+				</Inputs>
+			</PrecedenceConstraints>
+			<ExternalProjectPackage Package="FinanceWorkOrder_48.dtsx" />
+		</ExecutePackage>
+		<ExecutePackage Name="FinanceLedger">
+			<PrecedenceConstraints>
+				<Inputs>
+					<Input OutputPathName="FinanceAccount.Output" EvaluationValue="Completion" SsisName="FinanceAccount FinanceLedger Lookup Constraint" />
+					<Input OutputPathName="FinanceWorkOrder.Output" EvaluationValue="Completion" SsisName="FinanceWorkOrder FinanceLedger Lookup Constraint" />
+				</Inputs>
+			</PrecedenceConstraints>
+			<ExternalProjectPackage Package="FinanceLedger_49.dtsx" />
+		</ExecutePackage>
+		<ExecutePackage Name="AccountBalances">
+			<PrecedenceConstraints>
+				<Inputs>
+					<Input OutputPathName="FinanceAccount.Output" EvaluationValue="Completion" SsisName="FinanceAccount AccountBalances Lookup Constraint" />
+				</Inputs>
+			</PrecedenceConstraints>
+			<ExternalProjectPackage Package="AccountBalances_50.dtsx" />
+		</ExecutePackage>
+	</Tasks>
+</Package>

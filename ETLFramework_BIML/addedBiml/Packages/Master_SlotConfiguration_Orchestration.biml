@@ -1,0 +1,50 @@
+﻿<Package Name="Master_SlotConfiguration_Orchestration" Language="None" >
+	  <Tasks>
+	    <Container Name="Configuration Lookups">
+	      <Tasks>
+	        <ExecutePackage Name="Style">
+	          <ExternalProjectPackage Package="SlotStyle_26.dtsx" />
+	        </ExecutePackage>
+	        <ExecutePackage Name="RevenueCalculationType">
+	          <ExternalProjectPackage Package="SlotRevenueCalculationType_27.dtsx" />
+	        </ExecutePackage>
+	        <ExecutePackage Name="ProgressiveType">
+	          <ExternalProjectPackage Package="SlotProgressiveType_25.dtsx" />
+	        </ExecutePackage>
+	        <ExecutePackage Name="Manufacturer">
+	          <ExternalProjectPackage Package="SlotManufacturer_24.dtsx" />
+	        </ExecutePackage>
+	        <ExecutePackage Name="Lease">
+	          <ExternalProjectPackage Package="SlotLease_23.dtsx" />
+	        </ExecutePackage>
+	        <ExecutePackage Name="Cabinet">
+	          <ExternalProjectPackage Package="SlotCabinet_21.dtsx" />
+	        </ExecutePackage>
+	      </Tasks>
+	    </Container>
+	    <ExecutePackage Name="Configuration">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="Configuration Lookups.Output" EvaluationValue="Completion" SsisName="Configuration Lookup Constraint" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="SlotConfiguration_20.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="Slot Type - Multi Denom Flag">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="Configuration.Output" EvaluationValue="Completion" SsisName="Configuration Constraint 1" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="BB_SlotType_28.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="SlotRevisionEffectivePeriod">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="Configuration.Output" EvaluationValue="Completion" SsisName="Configuration Constraint 2" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="SlotRevisionEffectivePeriod_29.dtsx" />
+	    </ExecutePackage>
+	  </Tasks>
+</Package>

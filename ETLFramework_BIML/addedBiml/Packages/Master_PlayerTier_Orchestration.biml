@@ -1,0 +1,36 @@
+﻿    <Package Name="Master_PlayerTier_Orchestration" Language="None">
+      <Tasks>
+        <Container Name="Tier Configuration" ConstraintMode="LinearOnCompletion">
+          <Tasks>
+			  <ExecutePackage Name="Execute ODS UC_L_OverrideLog">
+				  <ExternalProjectPackage Package="UC_L_OverrideLog_235.dtsx" />
+              </ExecutePackage>
+			  <ExecutePackage Name="Execute TierConfigurationDurationType">
+				  <ExternalProjectPackage Package="TieredRankDuration_39.dtsx" />
+			  </ExecutePackage>
+			  <ExecutePackage Name="Execute TierConfiguration">
+            	  <ExternalProjectPackage Package="TierConfiguration_38.dtsx" />
+            </ExecutePackage>
+          </Tasks>
+        </Container>
+		  <Container Name="Player Category" ConstraintMode="LinearOnCompletion">
+          <Tasks>
+            <ExecutePackage Name="Execute Tier">
+              <ExternalProjectPackage Package="Tier_17.dtsx" />
+            </ExecutePackage>			
+            <ExecutePackage Name="Execute PlayerTier">
+              <ExternalProjectPackage Package="PlayerTier_16.dtsx" />
+            </ExecutePackage>
+          </Tasks>
+        </Container>
+			<ExecutePackage Name="Execute PlayerTierGift">
+				<ExternalProjectPackage Package="PlayerTierGift_234.dtsx" />
+				<PrecedenceConstraints>
+						<Inputs>
+							<Input OutputPathName="Tier Configuration.Output" />
+							<Input OutputPathName="Player Category.Output" />
+                        </Inputs>
+                </PrecedenceConstraints>
+            </ExecutePackage>
+      </Tasks>
+    </Package>

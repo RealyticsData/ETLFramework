@@ -1,0 +1,35 @@
+﻿<Package Name="Master_Hotel_Orchestration" Language="None" >
+	  <Tasks>
+	    <ExecutePackage Name="HotelGuest">
+	      <ExternalProjectPackage Package="HotelGuest.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="HotelRoom">
+	      <ExternalProjectPackage Package="HotelRoom.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="HotelRoomInventory">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="HotelRoom.Output" EvaluationValue="Completion" SsisName="HotelRoom_HotelRoomInventory_Completion" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="HotelRoomInventory.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="ODS_STAY">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="HotelGuest.Output" EvaluationValue="Completion" SsisName="HotelGuest_ODS_STAY_Completion" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="STAY.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="HotelGuestDay">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="HotelRoom.Output" EvaluationValue="Completion" SsisName="HotelRoom_HotelGuestDay_Completion" />
+	          <Input OutputPathName="ODS_STAY.Output" EvaluationValue="Completion" SsisName="ODS_STAY_HotelGuestDay_Completion" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="HotelGuestDay.dtsx" />
+	    </ExecutePackage>
+	  </Tasks>
+</Package>

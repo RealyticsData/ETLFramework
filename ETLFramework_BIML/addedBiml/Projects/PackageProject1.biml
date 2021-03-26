@@ -1,0 +1,5 @@
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Projects>
+        <PackageProject Name="PackageProject1" />
+    </Projects>
+</Biml>

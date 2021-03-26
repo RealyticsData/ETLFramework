@@ -1,0 +1,87 @@
+﻿<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Package Name="Master" Language="None" ProtectionLevel="EncryptSensitiveWithUserKey">
+      <Tasks>
+        <Container Name="Configuration Lookups">
+          <Tasks>
+            <ExecutePackage Name="Style">
+              <ExternalProjectPackage Package="SlotStyle.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="RevenueCalculationType">
+              <ExternalProjectPackage Package="SlotRevenueCalculationType.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="ProgressiveType">
+              <ExternalProjectPackage Package="SlotProgressiveType.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="Manufacturer">
+              <ExternalProjectPackage Package="SlotManufacturer.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="Lease">
+              <ExternalProjectPackage Package="SlotLease.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="Game">
+              <ExternalProjectPackage Package="SlotGame.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="Cabinet">
+              <ExternalProjectPackage Package="SlotCabinet.dtsx" />
+            </ExecutePackage>
+          </Tasks>
+        </Container>
+        <ExecutePackage Name="Configuration">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Configuration Lookups.Output" SsisName="Constraint" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <ExternalProjectPackage Package="SlotConfiguration.dtsx" />
+        </ExecutePackage>
+        <ExecutePackage Name="Slot Type - Multi Denom Flag">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Configuration.Output" EvaluationValue="Completion" SsisName="Constraint 1" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <ExternalProjectPackage Package="BB_SlotType.dtsx" />
+        </ExecutePackage>
+        <ExecutePackage Name="ODS - Revision Effective Period">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Configuration.Output" SsisName="Constraint 2" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <ExternalProjectPackage Package="BB_RevisionHistory.dtsx" />
+        </ExecutePackage>
+        <ExecutePackage Name="SlotMinute">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="ODS - Revision Effective Period.Output" SsisName="Constraint 6" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <ExternalProjectPackage Package="SlotMinute.dtsx" />
+        </ExecutePackage>
+        <ExecutePackage Name="SlotDay">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="ODS - Revision Effective Period.Output" SsisName="Constraint 4" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <ExternalProjectPackage Package="SlotDay.dtsx" />
+        </ExecutePackage>
+        <ExecutePackage Name="ODS - FreePlay from BB_Rev_PBT">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="SlotDay.Output" EvaluationValue="Completion" SsisName="Constraint 5" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <ExternalProjectPackage Package="BB_Revenue_PBT.dtsx" />
+        </ExecutePackage>
+        <ExecutePackage Name="SlotBadMeter">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="ODS - Revision Effective Period.Output" SsisName="Constraint 3" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <ExternalProjectPackage Package="SlotBadMeter.dtsx" />
+        </ExecutePackage>
+      </Tasks>
+    </Package>
+</Biml>

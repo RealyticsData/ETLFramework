@@ -1,0 +1,18 @@
+﻿<Package Name="Master_SlotDay_Orchestration" Language="None" >
+	  <Tasks>
+	    <ExecutePackage Name="SlotDay">
+	      <ExternalProjectPackage Package="SlotDay_31.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="ODS - FreePlay from BB_Rev_PBT">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="SlotDay.Output" EvaluationValue="Completion" SsisName="Constraint 5" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="BB_Revenue_PBT_33.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="SlotBadMeter">
+	      <ExternalProjectPackage Package="SlotBadMeter_30.dtsx" />
+	    </ExecutePackage>
+	  </Tasks>
+</Package>

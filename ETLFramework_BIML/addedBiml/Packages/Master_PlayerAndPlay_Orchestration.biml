@@ -1,0 +1,102 @@
+﻿    <Package Name="Master_PlayerAndPlay_Orchestration" Language="None">
+      <Tasks>
+        <Container Name="Tier Configuration" ConstraintMode="LinearOnCompletion">
+          <Tasks>
+			  <ExecutePackage Name="Execute TierConfigurationDurationType">
+				  <ExternalProjectPackage Package="TieredRankDuration_39.dtsx" />
+			  </ExecutePackage>
+			  <ExecutePackage Name="Execute TierConfiguration">
+            	  <ExternalProjectPackage Package="TierConfiguration_38.dtsx" />
+            </ExecutePackage>
+          </Tasks>
+        </Container>
+		  <Container Name="Player Category" ConstraintMode="LinearOnCompletion">
+          <Tasks>
+			  <ExecutePackage Name="Execute PlayerAccountStatus">
+				  <ExternalProjectPackage Package="GEN_AccountStatus_5.dtsx" />
+			  </ExecutePackage>
+			  <ExecutePackage Name="Execute Player">
+              <ExternalProjectPackage Package="Player_9.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="Execute Tier">
+              <ExternalProjectPackage Package="Tier_17.dtsx" />
+            </ExecutePackage>			
+            <ExecutePackage Name="Execute PlayerTier">
+              <ExternalProjectPackage Package="PlayerTier_16.dtsx" />
+            </ExecutePackage>
+          </Tasks>
+        </Container>
+        <Container Name="Rated Session Category" ConstraintMode="LinearOnCompletion">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Player Category.Output" EvaluationValue="Completion" SsisName="Constraint 1" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <Tasks>
+            <ExecutePackage Name="Execute RatedSession">
+              <ExternalProjectPackage Package="RatedSession_12.dtsx" />
+            </ExecutePackage>
+          </Tasks>
+        </Container>
+        <Container Name="Player ODS Category" ConstraintMode="LinearOnCompletion">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Player Category.Output" EvaluationValue="Completion" SsisName="Constraint" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <Tasks>
+            <ExecutePackage Name="Execute PlayerAddress">
+              <ExternalProjectPackage Package="PlayerAddress_13.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="Execute MGT_Email">
+              <ExternalProjectPackage Package="MGT_Email_14.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="Execute PlayerMemoType">
+              <ExternalProjectPackage Package="PlayerMemoType_6.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="Execute PlayerExclusionType">
+              <ExternalProjectPackage Package="PlayerExclusionType_7.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="Execute PlayerMemo">
+              <ExternalProjectPackage Package="PlayerMemo_15.dtsx" />
+            </ExecutePackage>
+			<ExecutePackage Name="Execute PatronMemoComments">
+				<ExternalProjectPackage Package="PatronMemoComments_8.dtsx" />
+            </ExecutePackage>
+          </Tasks>
+        </Container>
+        <Container Name="Group Category" ConstraintMode="LinearOnCompletion">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Player Category.Output" EvaluationValue="Completion" SsisName="Constraint 2" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <Tasks>
+            <ExecutePackage Name="Execute PlayerGroup">
+              <ExternalProjectPackage Package="PlayerGroup_10.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="Execute PlayerGroupEnrollment">
+              <ExternalProjectPackage Package="PlayerGroupEnrollment_11.dtsx" />
+            </ExecutePackage>
+          </Tasks>
+        </Container>
+  		<Container Name="Miscellaneous Category" ConstraintMode="LinearOnCompletion">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Player Category.Output" EvaluationValue="Completion" SsisName="Constraint 3" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <Tasks>
+            <ExecutePackage Name="Execute CDS_User">
+              <ExternalProjectPackage Package="CDS_User_18.dtsx" />
+            </ExecutePackage>
+			<ExecutePackage Name="Execute PlayerCard">
+				<ExternalProjectPackage Package="PlayerCard_4.dtsx" />
+            </ExecutePackage>
+			<ExecutePackage Name="Execute CDS_Buffer">
+				<ExternalProjectPackage Package="CDS_Buffer_80.dtsx" />
+            </ExecutePackage>
+          </Tasks>
+        </Container>		
+      </Tasks>
+    </Package>

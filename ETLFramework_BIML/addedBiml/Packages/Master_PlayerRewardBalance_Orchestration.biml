@@ -1,0 +1,48 @@
+﻿<Package Name="Master_PlayerRewardBalance_Orchestration" Language="None" >
+	  <Tasks>
+	    <ExecutePackage Name="Execute CDS_Config">
+	      <ExternalProjectPackage Package="CDS_Config_3.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="Execute DBVersions">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="Execute CDS_Config.Output" EvaluationValue="Completion" SsisName="Execute CDS_Config_Completion_DBVersions" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="DBVersions_19.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="Execute PlayerRewardBalance_CDS_StatBalance">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="Execute CDS_Config.Output" EvaluationValue="Completion" SsisName="Execute CDS_Config_Completion" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="PlayerRewardBalance_CDS_StatBalance_2.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="Execute PlayerRewardBalance_CDS_StatSummary">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="Execute PlayerRewardBalance_CDS_StatBalance.Output" EvaluationValue="Completion" SsisName="Execute PlayerRewardBalance_CDS_StatBalance_Completion" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="PlayerRewardBalance_CDS_StatSummary_1.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="Execute PlayerRewardBalance_UC_PL_CompBalance_214">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="Execute CDS_Config.Output" EvaluationValue="Completion" SsisName="Execute CDS_Config_Completion_214" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="PlayerRewardBalance_UC_PL_CompBalance_214.dtsx" />
+	    </ExecutePackage>
+
+	    <ExecutePackage Name="Execute PlayerRewardBalance_UC_PL_PointBalance_218">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="Execute PlayerRewardBalance_UC_PL_CompBalance_214.Output" EvaluationValue="Completion" SsisName="Execute PlayerRewardBalance_UC_PL_CompBalance_214_Completion_218" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="PlayerRewardBalance_UC_PL_PointBalance_218.dtsx" />
+	    </ExecutePackage>
+	</Tasks>	
+</Package>
