@@ -1,0 +1,23 @@
+﻿<Package Name="Master_ATI_Ticket_Orchestration" Language="None" >
+	  <Tasks>
+        <ExecutePackage Name="TicketStatus">
+          <ExternalProjectPackage Package="GEN_TicketStatus_37.dtsx" />
+        </ExecutePackage>
+		<ExecutePackage Name="TicketRedeemed">
+			<PrecedenceConstraints>
+				<Inputs>
+					<Input OutputPathName="TicketStatus.Output" EvaluationValue="Completion" />
+                </Inputs>
+            </PrecedenceConstraints>
+			<ExternalProjectPackage Package="ATI_TicketRedeemed_36.dtsx" />
+        </ExecutePackage>
+		<ExecutePackage Name="TicketHistory">
+			<PrecedenceConstraints>
+				<Inputs>
+					<Input OutputPathName="TicketRedeemed.Output" EvaluationValue="Completion" />
+                </Inputs>
+            </PrecedenceConstraints>
+			<ExternalProjectPackage Package="ATI_TicketHistory_35.dtsx" />
+        </ExecutePackage>
+	  </Tasks>
+</Package>

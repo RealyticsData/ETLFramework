@@ -1,0 +1,23 @@
+﻿<Package Name="Master_Ainsworth_Orchestration" Language="None" >
+	  <Tasks>
+	    <ExecutePackage Name="HRMFloorDay_95">
+	      <ExternalProjectPackage Package="HRMFloorDay_95.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="HRMFloorDay_96">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="HRMFloorDay_95.Output" EvaluationValue="Completion"/>
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="HRMFloorDay_96.dtsx" />
+		</ExecutePackage>
+	    <ExecutePackage Name="HRMFloorDay_97">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="HRMFloorDay_96.Output" EvaluationValue="Completion"/>
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="HRMFloorDay_97.dtsx" />
+	    </ExecutePackage>
+	  </Tasks>
+</Package>

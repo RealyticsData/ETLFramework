@@ -1,0 +1,7 @@
+﻿<Package Name="Master_OpenWeatherMap_Orchestration" Language="None" >
+	  <Tasks>
+	    <ExecutePackage Name="WeatherDay_98">
+	      <ExternalProjectPackage Package="WeatherDay_98.dtsx" />
+	    </ExecutePackage>
+	  </Tasks>
+</Package>

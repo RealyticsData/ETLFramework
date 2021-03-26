@@ -1,0 +1,47 @@
+﻿<Package Name="Master_FoodAndBeverage_Orchestration" Language="None" >
+	  <Tasks>
+	    <ExecutePackage Name="FBMenuItemConfiguration">
+	      <ExternalProjectPackage Package="FBMenuItemConfiguration.dtsx" />
+	    </ExecutePackage>
+
+
+	    <ExecutePackage Name="FBCheck">
+	      <ExternalProjectPackage Package="FBCheck.dtsx" />
+	    </ExecutePackage>
+
+
+	    <ExecutePackage Name="FBLineItem_CheckDetail">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="FBMenuItemConfiguration.Output" EvaluationValue="Completion" SsisName="FBMenuItemConfiguration_Completion" />
+	          <Input OutputPathName="FBCheck.Output" EvaluationValue="Completion" SsisName="FBCheck_Completion" />			  
+	        </Inputs>
+	      </PrecedenceConstraints>
+		
+	      <ExternalProjectPackage Package="FBLineItem_CheckDetail.dtsx" />
+	    </ExecutePackage>
+		
+	    <ExecutePackage Name="FBLineItem_CheckDiscount">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="FBLineItem_CheckDetail.Output" EvaluationValue="Completion" SsisName="FBLineItem_CheckDetail_Completion" />			  
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="FBLineItem_CheckDiscount.dtsx" />
+	    </ExecutePackage>
+
+
+	    <ExecutePackage Name="FBCheckTender">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="FBCheck.Output" EvaluationValue="Completion" SsisName="FBCheckTender_Completion" />	
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="FBCheckTender.dtsx" />
+	    </ExecutePackage>
+
+
+		
+
+	  </Tasks>
+</Package>

@@ -1,0 +1,42 @@
+﻿    <Package Name="Master_RatedPlay_Orchestration" Language="None">
+      <Tasks>
+      
+	
+        <Container Name="Rated Session Category" ConstraintMode="LinearOnCompletion">
+          <PrecedenceConstraints>
+            <Inputs>
+            </Inputs>
+          </PrecedenceConstraints>
+          <Tasks>
+            <ExecutePackage Name="Execute RatedSession">
+              <ExternalProjectPackage Package="RatedSession_12.dtsx" />
+            </ExecutePackage>
+            <ExecutePackage Name="Execute UC_PL_Rating_210">
+              <ExternalProjectPackage Package="UC_PL_Rating_210.dtsx" />
+            </ExecutePackage>
+			</Tasks>
+        </Container>
+    
+  
+  		<Container Name="Miscellaneous Category" ConstraintMode="LinearOnCompletion">
+          <PrecedenceConstraints>
+            <Inputs>
+              <Input OutputPathName="Rated Session Category.Output" EvaluationValue="Completion" SsisName="Constraint 3" />
+            </Inputs>
+          </PrecedenceConstraints>
+          <Tasks>
+			<ExecutePackage Name="Execute CDS_Buffer">
+				<ExternalProjectPackage Package="CDS_Buffer_80.dtsx" />
+            </ExecutePackage>
+
+			<ExecutePackage Name="Execute UC_PL_CompEarningDetail">
+				<ExternalProjectPackage Package="UC_PL_CompEarningDetail_208.dtsx" />
+            </ExecutePackage>
+			
+			<ExecutePackage Name="Execute UC_PL_PointEarningDetail">
+				<ExternalProjectPackage Package="UC_PL_PointEarningDetail_209.dtsx" />
+            </ExecutePackage>			
+			</Tasks>
+        </Container>		
+      </Tasks>
+    </Package>

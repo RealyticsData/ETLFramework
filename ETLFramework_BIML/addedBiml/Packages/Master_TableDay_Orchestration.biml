@@ -1,0 +1,35 @@
+﻿<Package Name="Master_TableDay_Orchestration" Language="None" >
+	  <Tasks>
+		<ExecutePackage Name="PitInventoryItem">
+	      <ExternalProjectPackage Package="PitInventoryItem_84.dtsx" />
+	    </ExecutePackage>
+		<ExecutePackage Name="TableGame">
+	      <ExternalProjectPackage Package="TableGame_86.dtsx" />
+		</ExecutePackage>
+		  <ExecutePackage Name="PitLocation">
+		  <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="TableGame.Output" EvaluationValue="Completion" SsisName="Constraint 6" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="PitLocation_81.dtsx" />
+	    </ExecutePackage>
+		<ExecutePackage Name="TableDay">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="PitLocation.Output" EvaluationValue="Completion" SsisName="Constraint 5" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="TableDay_82.dtsx" />
+	    </ExecutePackage>
+		<ExecutePackage Name="PitTransaction">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="PitLocation.Output" EvaluationValue="Completion" SsisName="Constraint 9" />
+	          <Input OutputPathName="PitInventoryItem.Output" EvaluationValue="Completion" SsisName="Constraint 4" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+		  <ExternalProjectPackage Package="PitTransaction_83.dtsx" />
+	    </ExecutePackage>
+	  </Tasks>
+</Package>

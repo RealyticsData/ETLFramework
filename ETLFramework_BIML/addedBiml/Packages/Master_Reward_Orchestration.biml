@@ -1,0 +1,49 @@
+﻿<Package Name="Master_Reward_Orchestration" Language="None" >
+	  <Tasks>
+	    <ExecutePackage Name="PlayerReward_Issued">
+	      <ExternalProjectPackage Package="PlayerReward_Issued_53.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="CDS_Prize">
+	      <ExternalProjectPackage Package="CDS_Prize_54.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="PlayerReward_CDS_Redemption">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="CDS_Prize.Output" EvaluationValue="Completion" SsisName="CDS_Prize_PlayerReward_CDS_Redemption_Completion" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="PlayerReward_CDS_Redemption_55.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="PlayerTargetedPromotion">
+	      <ExternalProjectPackage Package="PlayerTargetedPromotion_56.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="PlayerTargetedRewardEnrollment">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="PlayerTargetedPromotion.Output" EvaluationValue="Completion" SsisName="PlayerTargetedRewardEnrollment_PlayerTargetedRewardEnrollment_Completion" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="PlayerTargetedRewardEnrollment_51.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="Transactions">
+	      <ExternalProjectPackage Package="Transactions_57.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="PlayerReward_PBTPromoPlayer">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="PlayerTargetedRewardEnrollment.Output" EvaluationValue="Completion" SsisName="PlayerTargetedRewardEnrollment_PlayerReward_PBTPromoPlayer_Completion" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="PlayerReward_PBTPromoPlayer_58.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="PlayerReward_TransactionLedger">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="PlayerTargetedRewardEnrollment.Output" EvaluationValue="Completion" SsisName="PlayerTargetedRewardEnrollment_PlayerReward_TransactionLedger_Completion" />
+	          <Input OutputPathName="Transactions.Output" EvaluationValue="Completion" SsisName="Transactions_PlayerReward_TransactionLedger_Completion" />
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="PlayerReward_TransactionLedger_52.dtsx" />
+	    </ExecutePackage>
+	  </Tasks>
+</Package>

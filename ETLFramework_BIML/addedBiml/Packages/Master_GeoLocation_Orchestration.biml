@@ -1,0 +1,7 @@
+<Package Name="Master_GeoLocation_Orchestration" Language="None" >
+	  <Tasks>
+	    <ExecutePackage Name="GeoActivity">
+	      <ExternalProjectPackage Package="GeoFenceEvent.dtsx" />
+	    </ExecutePackage>
+	  </Tasks>
+</Package>

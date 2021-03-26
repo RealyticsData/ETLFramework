@@ -1,0 +1,243 @@
+﻿<#@ template language="C#" hostspecific="true" tier="1"#>
+<#@ import namespace="System.Data" #>
+
+<#	
+	var ServerName = "SQLBIdev";
+    string metadataConnectionString = "Provider=SQLNCLI11;Server=" + ServerName + ";Initial Catalog=ETLSupport;Integrated Security=SSPI;";
+	string MasterOrchestration = "PlayerTier";
+
+/*
+	string MasterOrchestration = "Player";
+	string MasterOrchestration = "SlotDay";
+	string MasterOrchestration = "SlotTicket";
+	string MasterOrchestration = "SlotConfiguration";
+	string MasterOrchestration = "Headcount";
+	string MasterOrchestration = "Finance";
+	string MasterOrchestration = "Reward";
+	string MasterOrchestration = "GeoLocation";
+	string MasterOrchestration = "Hotel";
+	string MasterOrchestration = "PlayerRewardBalance";
+	string MasterOrchestration = "FoodAndBeverage";
+	string MasterOrchestration = "TableDay";
+	string MasterOrchestration = "Ainsworth";
+	string MasterOrchestration = "OpenWeatherMap";
+	string MasterOrchestration = "PlayerInterest";
+	string MasterOrchestration = "PlayerAncillary";
+	string MasterOrchestration = "RatedPlay";
+	string MasterOrchestration = "PlayerTier";
+	string MasterOrchestration = "GamingEmployee";
+*/
+
+	string MasterPackage = "";
+	string ProjectName = "";
+
+	string OrchestrationSql = "SELECT ProjectName, MasterOrchestrationPackage FROM dbo.Orchestration WHERE OrchestrationName = '" + MasterOrchestration + "';";
+	string DataSetSql = "SELECT ds.DataDestinationTable + '_' + cast(ds.DataSetID as varchar(10)), ds.DataSetID FROM dbo.DataSet ds INNER JOIN dbo.OrchestrationDataSet ods ON ds.DataSetID = ods.DataSetID INNER JOIN dbo.Orchestration o ON ods.OrchestrationID = o.OrchestrationID WHERE o.OrchestrationName = '" + MasterOrchestration + "'";
+
+	DataTable orchestrationTable = ExternalDataAccess.GetDataTable(metadataConnectionString, OrchestrationSql);
+	DataRow orchestrationRow = orchestrationTable.Rows[0];
+	
+	MasterPackage = orchestrationRow[1].ToString();
+	ProjectName = orchestrationRow[0].ToString();
+
+	DataTable dataSetTable = ExternalDataAccess.GetDataTable(metadataConnectionString, DataSetSql);
+#>
+
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Connections>
+        <OleDbConnection Name="ETLSupport" ConnectionString="Provider=SQLNCLI11;Data Source=P10WINSQLS06;Initial Catalog=ETLSupport;Integrated Security=SSPI;Auto Translate=False;" CreateInProject="true" />
+    </Connections>
+    <Projects>
+        <PackageProject Name="<#=ProjectName#>" ProtectionLevel="DontSaveSensitive">
+			<Parameters>
+				<Parameter Name="EDWServer" DataType="String" IsRequired="true">SQLBIDEV</Parameter>
+            </Parameters>
+            <Connections>
+                <Connection ConnectionName="ETLSupport">
+					<Expressions>
+						<Expression PropertyName="ETLSupport.ConnectionString">"Provider=SQLNCLI11.1;Data Source=" + @[$Project::EDWServer]  + ";Initial Catalog=ETLSupport;Integrated Security=SSPI;Auto Translate=False;"</Expression>
+                    </Expressions>
+                </Connection>
+            </Connections>
+            <Packages>
+				<#
+					foreach (DataRow rw in dataSetTable.Rows)
+					{
+						string RefPackageName = rw[0].ToString();
+				#>
+                <Package PackageName="<#=RefPackageName#>" />
+				<#
+					}
+				#>
+				<Package PackageName="<#=MasterPackage#>" />
+            </Packages>
+        </PackageProject>
+    </Projects>
+    <Packages>
+
+		<#
+			foreach (DataRow rw in dataSetTable.Rows)
+			{
+				string PackageName = rw[0].ToString();
+				string DataSetString = rw[1].ToString();
+				int DataSetID = Int32.Parse(DataSetString);
+
+				DataTable dbSourceTable = ExternalDataAccess.GetDataTable(metadataConnectionString, 
+			    " SELECT distinct [BusinessLocationID], DatabaseName  FROM [ETLSupport].[dbo].[BusinessLocation_DBTables] WHERE DataSetID =  " + DataSetString );
+				DataTable dbDestinationTable = ExternalDataAccess.GetDataTable(metadataConnectionString,
+				"SELECT SourceBusinessLocationID, SourceDatabaseName, EdwBusinessLocationID, EdwLabel FROM dbo.BusinessLocation_SourceDestinationMap WHERE DataSetID = " + DataSetString);
+		#>
+
+        <Package Name="<#=PackageName#>">
+            <Tasks>
+				<ExecuteSQL Name="Generate SessionID" ConnectionName="ETLSupport">
+					<DirectInput>EXEC dbo.StartEtlSession @DataSetID = <#=DataSetID#>, @SessionID = ? OUT, @StartTime = ? OUT</DirectInput>
+					<Parameters>
+						<Parameter Name="0" DataType="Guid" Direction="Output" VariableName="<#=PackageName#>.User.SessionID" />
+						<Parameter Name="1" DataType="AnsiString" Length="50" Direction="Output" VariableName="<#=PackageName#>.User.StartTime" />
+                    </Parameters>
+                </ExecuteSQL>
+
+				<ExecuteSQL Name="Truncate Stage" ConnectionName="ETLSupport">
+					<DirectInput>EXEC dbo.TruncateStage <#=DataSetID#> </DirectInput>
+					<PrecedenceConstraints>
+						<Inputs>
+							<Input OutputPathName="<#=PackageName#>.Generate SessionID.Output" />
+                        </Inputs>
+                    </PrecedenceConstraints>
+				</ExecuteSQL>
+
+				<# 
+					foreach (DataRow srow in dbSourceTable.Rows)
+                	{ #>
+                <ExecuteSQL Name="Extract_<#=srow[1]#>" ConnectionName="ETLSupport" >
+						<DirectInput>EXEC dbo.LoadStageTable  <#=DataSetID#> , <#=srow[0]#>, ?,@RunIndicator = ? OUTPUT, @EndDateTimeString = ? OUTPUT</DirectInput>
+						<Parameters>
+							<Parameter Name="0" DataType="Guid"   VariableName="<#=PackageName#>.User.SessionID" />
+        					<Parameter Name="1" DataType="Single" VariableName="User.Run_<#=srow[1]#>_Indicator" Direction="Output" Length="-1" />
+        					<Parameter Name="2" DataType="String" VariableName="User.<#=srow[1]#>_EndDateTimeString" Direction="Output" Length="-1" />
+                		</Parameters>
+	                    <PrecedenceConstraints>
+	                        <Inputs>
+	                            <Input OutputPathName="Truncate Stage.Output" />
+	                        </Inputs>
+	                    </PrecedenceConstraints>
+				</ExecuteSQL>
+				<# } #>
+
+				<ExecuteSQL Name="Transform Stage" ConnectionName="ETLSupport">
+					<DirectInput>EXEC [dbo].[TransformStagingData]  <#=DataSetID#>, ?</DirectInput>
+					<Parameters>
+						<Parameter Name="0" DataType="Guid" VariableName="<#=PackageName#>.User.SessionID" />
+                    </Parameters>
+					<PrecedenceConstraints>
+                        <Inputs>
+
+					<#
+						foreach (DataRow srow in dbSourceTable.Rows)
+	                	{ #>
+                            <Input OutputPathName="Extract_<#=srow[1]#>.Output"  EvaluationValue="Completion" SsisName="Extract_<#=srow[1]#> Complete"/>
+					<# } #>
+
+                        </Inputs>
+                    </PrecedenceConstraints>
+				</ExecuteSQL>
+
+				<#
+	            foreach (DataRow drow in dbDestinationTable.Rows)
+	            {
+				#>
+
+				<Container Name="Merge <#=drow[3]#>" ConstraintMode="LinearOnSuccess">
+				  <PrecedenceConstraints>
+						<Inputs>
+							<Input OutputPathName="<#=PackageName#>.Transform Stage.Output" />
+              				<Input OutputPathName="Extract_<#=drow[1]#>.Output"  EvaluationOperation="ExpressionAndConstraint" Expression="@[User::Run_<#=drow[1]#>_Indicator] == 1" />
+						</Inputs>
+	                </PrecedenceConstraints>
+					<Tasks>
+						<ExecuteSQL Name="Merge <#=drow[3]#> to EDW" ConnectionName="ETLSupport">
+							<DirectInput>EXEC [dbo].LoadEDWTable <#=DataSetID#> , <#=drow[2]#> , ?</DirectInput>
+							<Parameters>
+								<Parameter Name="0" DataType="Guid" VariableName="<#=PackageName#>.User.SessionID" />
+		                    </Parameters>
+		                </ExecuteSQL>
+						<ExecuteSQL Name="SetControlDate_<#=drow[3]#>" ConnectionName="ETLSupport" >
+							<DirectInput>EXEC dbo.SetControlDate  <#=DataSetID#> , <#=drow[2]#> , ?</DirectInput>
+							<Parameters>
+		        					<Parameter Name="0" DataType="String" VariableName="User.<#=drow[1]#>_EndDateTimeString" Direction="Input" Length="-1" />
+		                    </Parameters>
+						</ExecuteSQL>
+					</Tasks>
+				</Container>
+
+				<# } #>
+
+				<ExecuteSQL Name="Log Session End" ConnectionName="ETLSupport">
+					<DirectInput>EXEC dbo.EndEtlSession <#=DataSetID#>, ?, ?</DirectInput>
+					<Parameters>
+						<Parameter Name="0" DataType="Guid" VariableName="<#=PackageName#>.User.SessionID" />
+						<Parameter Name="1" DataType="AnsiString" Length="50" VariableName="<#=PackageName#>.User.StartTime" />
+                    </Parameters>
+					<PrecedenceConstraints>
+						<Inputs>
+						<#
+							foreach (DataRow drow in dbDestinationTable.Rows)
+				            { #>
+							<Input OutputPathName="Merge <#=drow[3]#>.Output" EvaluationOperation="ExpressionOrConstraint" EvaluationValue="Completion" Expression="@[User::Run_<#=drow[1]#>_Indicator] == 0" />
+						<# } #>
+
+                        </Inputs>
+                    </PrecedenceConstraints>
+
+					</ExecuteSQL>
+            </Tasks>
+
+			<Variables>
+				<Variable Name="SessionID" DataType="Object" />
+				<Variable Name="StartTime" DataType="String">1900-01-01 00:00:00</Variable>
+			<#
+				foreach (DataRow srow in dbSourceTable.Rows)
+            { #>
+				<Variable Name="Run_<#=srow[1]#>_Indicator" DataType="Int32">0</Variable>
+				<Variable Name="<#=srow[1]#>_EndDateTimeString" DataType="String">1900-01-01 00:00:00.000</Variable>
+			<# } #>
+            </Variables>
+			<Events>
+				<Event Name="Package Error" EventType="OnError">
+					<Tasks>
+						<ExecuteSQL Name="Log Session End" ConnectionName="ETLSupport">
+							<DirectInput>EXEC dbo.EndEtlSession @DataSetID = <#=DataSetID#>, @SessionID = ?, @StartTime = ?, @LogStatus = 'Failure';</DirectInput>
+							<Parameters>
+								<Parameter Name="0" DataType="Guid" VariableName="<#=PackageName#>.User.SessionID" />
+								<Parameter Name="1" DataType="AnsiString" Length="50" VariableName="<#=PackageName#>.User.StartTime" />
+		                    </Parameters>
+		                </ExecuteSQL>
+                    </Tasks>
+                </Event>
+            </Events>
+
+        </Package>
+			  <# } #>
+		<!--		<#@ include file="addedBiml\Packages\Master_Player_Orchestration.biml"#> 				-->
+		<!--		<#@ include file="addedBiml\Packages\Master_SlotDay_Orchestration.biml"#> 				-->
+		<!--		<#@ include file="addedBiml\Packages\Master_ATI_Ticket_Orchestration.biml"#> 			-->
+		<!--		<#@ include file="addedBiml\Packages\Master_SlotConfiguration_Orchestration.biml"#> 	-->
+		<!--		<#@ include file="addedBiml\Packages\Master_Headcount_Orchestration.biml"#> 			-->
+		<!--		<#@ include file="addedBiml\Packages\Master_Finance_Orchestration.biml"#> 				-->
+		<!--		<#@ include file="addedBiml\Packages\Master_Reward_Orchestration.biml"#> 				-->
+		<!--		<#@ include file="addedBiml\Packages\Master_GeoLocation_Orchestration.biml"#> 			-->
+		<!--		<#@ include file="addedBiml\Packages\Master_Hotel_Orchestration.biml"#> 			    -->
+		<!--		<#@ include file="addedBiml\Packages\Master_PlayerRewardBalance_Orchestration.biml"#> 	-->
+		<!-- 		<#@ include file="addedBiml\Packages\Master_FoodAndBeverage_Orchestration.biml"#> 		-->
+		<!--		<#@ include file="addedBiml\Packages\Master_TableDay_Orchestration.biml"#>				-->
+		<!--		<#@ include file="addedBiml\Packages\Master_Ainsworth_Orchestration.biml"#>				-->	
+		<!-- 		<#@ include file="addedBiml\Packages\Master_OpenWeatherMap_Orchestration.biml"#>		-->
+		<!--		<#@ include file="addedBiml\Packages\Master_PlayerInterest_Orchestration.biml"#>		-->
+		<!--		<#@ include file="addedBiml\Packages\Master_PlayerAncillary_Orchestration.biml"#> 		-->
+		<!--		<#@ include file="addedBiml\Packages\Master_RatedPlay_Orchestration.biml"#> 		    -->
+		<!--		<#@ include file="addedBiml\Packages\Master_PlayerTier_Orchestration.biml"#> 		    -->
+		<!--		<#@ include file="addedBiml\Packages\Master_GamingEmployee_Orchestration.biml"#> 		-->
+				<#@ include file="addedBiml\Packages\Master_PlayerTier_Orchestration.biml"#> 
+    </Packages>
+	</Biml>

@@ -1,0 +1,15 @@
+﻿<Package Name="Master_PlayerInterest_Orchestration" Language="None" >
+	  <Tasks>
+	    <ExecutePackage Name="PlayerInterest_100">
+	      <ExternalProjectPackage Package="PlayerInterest_100.dtsx" />
+	    </ExecutePackage>
+	    <ExecutePackage Name="PlayerInterestEnrollment_101">
+	      <PrecedenceConstraints>
+	        <Inputs>
+	          <Input OutputPathName="PlayerInterest_100.Output" EvaluationValue="Completion"/>
+	        </Inputs>
+	      </PrecedenceConstraints>
+	      <ExternalProjectPackage Package="PlayerInterestEnrollment_101.dtsx" />
+		</ExecutePackage>
+	  </Tasks>
+</Package>
