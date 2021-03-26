@@ -1,0 +1,20 @@
+{
+	"CleanupRetention": [
+		{
+			"Type": "Temp",
+			"Days": "90"
+		},
+		{
+			"Type": "PendingRefactor",
+			"Days": "28"
+		},
+		{
+			"Type": "SQLAgent",
+			"Days": "60"
+		},
+		{
+			"Type": "SSISDB",
+			"Days": "60"
+		{
+	]
+}

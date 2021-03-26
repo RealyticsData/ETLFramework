@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>EdwTemplate</Name>
+    <Name>OltpTemplate</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{960176eb-ecd3-41fc-a2dd-c3104bf4bd03}</ProjectGuid>
+    <ProjectGuid>{07b9dbb0-a31a-4a06-a93a-9ed4ca32e55f}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>EdwTemplate</RootNamespace>
-    <AssemblyName>EdwTemplate</AssemblyName>
+    <RootNamespace>OltpTemplate</RootNamespace>
+    <AssemblyName>OltpTemplate</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
@@ -57,15 +57,19 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="RecordPopulation" />
     <Folder Include="Schemas" />
     <Folder Include="Scripts" />
-    <Folder Include="Stored Procedures" />
-    <Folder Include="Tables" />
+    <Folder Include="RecordPopulation" />
     <Folder Include="Views" />
+    <Folder Include="Tables" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="Tables\Reference.PostalState.sql" />
+    <Build Include="Tables\Reference.PostalZip.sql" />
+    <Build Include="Schemas\PendingRefactor.sql" />
     <Build Include="Schemas\PendingRemoval.sql" />
+    <Build Include="Schemas\Reference.sql" />
     <Build Include="Schemas\Temp.sql" />
+    <Build Include="Tables\Reference.PostalStateType.sql" />
   </ItemGroup>
 </Project>

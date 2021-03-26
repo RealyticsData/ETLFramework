@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>ETLFramework_DB</Name>
+    <Name>ETLAdmin</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{e48f620f-7547-4981-a069-f79735c61a02}</ProjectGuid>
@@ -148,6 +148,7 @@
     <None Include="DB_SchemaCompare.scmp" />
     <None Include="Stored Procedures\Framework.TransformStagingData.sql" />
     <None Include="Naming Standards.txt" />
+    <None Include="RecordPopulation\ETLConfig.json" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ETLFramework_DB.refactorlog" />
