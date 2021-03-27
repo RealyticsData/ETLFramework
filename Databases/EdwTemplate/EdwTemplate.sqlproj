@@ -63,6 +63,7 @@
     <Folder Include="Stored Procedures" />
     <Folder Include="Tables" />
     <Folder Include="Views" />
+    <Folder Include="Tables\Snowflake" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schemas\PendingRemoval.sql" />
@@ -72,5 +73,12 @@
     <Build Include="Tables\Reference.PostalState.sql" />
     <Build Include="Schemas\PendingRefactor.sql" />
     <Build Include="Tables\Reference.TimeofDay.sql" />
+    <Build Include="Schemas\General.sql" />
+    <Build Include="Tables\General.MailingAddress.sql" />
+    <Build Include="Tables\ETL.SessionLog.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tables\Snowflake\ReadMe.md" />
+    <Build Include="Schemas\ETL.sql" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,1 @@
+The EdwTemplate is a SSDT SQL Server database project for a database used in an enterprise data warehouse (EDW). By default it assumes a denormalized star schema, but objects are also included for a snowflake-schema data mart.

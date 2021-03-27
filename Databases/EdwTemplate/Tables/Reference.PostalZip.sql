@@ -5,9 +5,13 @@ Description:
 --------------------------------------------------------------------------------
 History:
 2021-03-26	Jonathan Szeto - Initial table creation.
+2021-03-27	Jonathan Szeto - Added audit columns.
 *******************************************************************************/
 CREATE TABLE Reference.PostalZip (
+	ZipCodeKey int NOT NULL IDENTITY(1,1),
 	ZipCode char(5) NOT NULL,
+	ModifyDate datetime2(7) NULL,
+	SessionID uniqueidentifier,
 	PostalCity varchar(50) NOT NULL,
 	PostalState char(2) NOT NULL,
 	ZipPopulation int NULL,
