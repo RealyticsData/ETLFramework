@@ -1,0 +1,12 @@
+{
+	"Schema": {
+		"Name": "General",
+		"Tables": [
+			{
+				"Name": "MailingAddress", "Description": "US Mailing Addresses", "Columns": [
+					{ "Name": "MailingAddressKey", "Description": "Table Surrogate Key"}
+				]
+			}
+		]
+	}
+}

@@ -76,9 +76,12 @@
     <Build Include="Schemas\General.sql" />
     <Build Include="Tables\General.MailingAddress.sql" />
     <Build Include="Tables\ETL.SessionLog.sql" />
+    <Build Include="Tables\Snowflake\Reference.BusinessMonth.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\Snowflake\ReadMe.md" />
     <Build Include="Schemas\ETL.sql" />
+    <None Include="Tables\DataDictionary.json" />
+    <None Include="README.md" />
   </ItemGroup>
 </Project>

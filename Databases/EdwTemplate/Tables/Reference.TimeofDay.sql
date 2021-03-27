@@ -8,13 +8,13 @@ History:
 CREATE TABLE Reference.TimeOfDay (
 	TimeKey int NOT NULL,
 	TimeValue time(0) NOT NULL,
-	TimeHour tinyint NOT NULL,
+	TimeHourKey tinyint NOT NULL,
 	TimeHourLabel varchar(12) NOT NULL,
-	TimeHalfHour tinyint NOT NULL,
+	TimeHalfHourKey tinyint NOT NULL,
 	TimeHalfHourLabel varchar(12) NOT NULL,
-	TimeQuarterHour tinyint NOT NULL,
+	TimeQuarterHourKey tinyint NOT NULL,
 	TimeQuarterHourLabel varchar(12) NOT NULL,
-	TimeFiveMinute tinyint NOT NULL,
+	TimeFiveMinuteKey tinyint NOT NULL,
 	TimeMinute tinyint NOT NULL,
 	TimeSecond tinyint NOT NULL
 ) ON [PRIMARY];
