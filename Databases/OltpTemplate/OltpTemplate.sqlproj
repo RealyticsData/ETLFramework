@@ -71,5 +71,6 @@
     <Build Include="Schemas\Reference.sql" />
     <Build Include="Schemas\Temp.sql" />
     <Build Include="Tables\Reference.PostalStateType.sql" />
+    <Build Include="Tables\Reference.TimeTally.sql" />
   </ItemGroup>
 </Project>

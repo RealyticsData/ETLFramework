@@ -71,5 +71,6 @@
     <Build Include="Tables\Reference.PostalZip.sql" />
     <Build Include="Tables\Reference.PostalState.sql" />
     <Build Include="Schemas\PendingRefactor.sql" />
+    <Build Include="Tables\Reference.TimeofDay.sql" />
   </ItemGroup>
 </Project>

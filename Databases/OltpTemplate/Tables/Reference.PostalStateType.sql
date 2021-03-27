@@ -8,7 +8,7 @@ History:
 *******************************************************************************/
 CREATE TABLE Reference.PostalStateType (
 	PostalStateTypeID tinyint NOT NULL,
-	ContinentalUSFlag bit NOT NULL,
+	PostalStateName varchar(50) NOT NULL,
 	CONSTRAINT PK_Reference#PostalStateType PRIMARY KEY NONCLUSTERED (
 		PostalStateTypeID
 	)

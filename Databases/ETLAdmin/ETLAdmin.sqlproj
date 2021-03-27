@@ -142,6 +142,8 @@
     <Build Include="Stored Procedures\EtlOps.BuildDataSetStagingTables.sql" />
     <None Include="Scripts\Concept for de-aggregating by hour.sql" />
     <Build Include="Stored Procedures\Metadata.GenerateMetadataSql.sql" />
+    <Build Include="Schemas\Tally.sql" />
+    <Build Include="Tables\Tally.DateTimeHour.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ETLFramework_DB.publish.xml" />
@@ -149,8 +151,7 @@
     <None Include="Stored Procedures\Framework.TransformStagingData.sql" />
     <None Include="Naming Standards.txt" />
     <None Include="RecordPopulation\ETLConfig.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="ETLFramework_DB.refactorlog" />
+    <None Include="RecordPopulation\Postal State Type.csv" />
+    <None Include="RecordPopulation\Postal State.csv" />
   </ItemGroup>
 </Project>

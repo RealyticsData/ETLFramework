@@ -10,6 +10,7 @@ CREATE TABLE Reference.PostalState (
 	PostalState char(2) NOT NULL,
 	PostalStateName varchar(30),
 	PostalStateTypeID tinyint,
+	ContinentalUSFlag bit NOT NULL,
 	CONSTRAINT PK_Reference#PostalState PRIMARY KEY NONCLUSTERED (
 		PostalState
 	),

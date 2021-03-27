@@ -1,5 +1,5 @@
 {
-	"CleanupRetention": [
+	"CleanupRetentionDays": [
 		{
 			"Type": "Temp",
 			"Days": "90"
@@ -15,6 +15,21 @@
 		{
 			"Type": "SSISDB",
 			"Days": "60"
-		{
-	]
+		}
+	],
+	"BusinessTime": {
+		"BusinessDayStart": "00:00:00",
+		"FiscalYearStart": {
+			"Month": "1",
+			"Day": "1"
+		},
+		"TimeTallyDateRange": {
+			"StartDate": "1900-01-01",
+			"EndDate": "2099-12-31"
+		}
+	},
+	"ETLOutageWindow": {
+		"StartTime": "02:00:00",
+		"EndTime": "04:00:00"
+	}
 }
