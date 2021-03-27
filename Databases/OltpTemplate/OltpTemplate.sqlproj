@@ -78,6 +78,9 @@
     <Build Include="Schemas\SensitiveInfo.sql" />
     <Build Include="Tables\SensitiveInfo.Person.sql" />
     <Build Include="Tables\General.PersonMailingAddress.sql" />
+    <Build Include="Tables\General.PersonEmail.sql" />
+    <Build Include="Tables\General.PersonPhone.sql" />
+    <Build Include="Tables\Reference.PhoneType.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\DataDictionary.json" />

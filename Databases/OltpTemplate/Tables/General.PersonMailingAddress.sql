@@ -21,7 +21,7 @@ CREATE TABLE General.PersonMailingAddress (
 );
 GO
 
-CREATE UNIQUE INDEX FIX_General#PersonMailingAddress ON General.PersonMailingAddress (
+CREATE UNIQUE INDEX FIX_General#PersonMailingAddress_UniquePrimary ON General.PersonMailingAddress (
 	PersonID
 )
 WHERE IsPrimaryAddress = 1;
