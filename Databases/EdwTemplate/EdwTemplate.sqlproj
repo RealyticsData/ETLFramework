@@ -70,13 +70,13 @@
     <Build Include="Schemas\Temp.sql" />
     <Build Include="Schemas\Reference.sql" />
     <Build Include="Tables\Reference.PostalZip.sql" />
-    <Build Include="Tables\Reference.PostalState.sql" />
     <Build Include="Schemas\PendingRefactor.sql" />
     <Build Include="Tables\Reference.EDWTime.sql" />
     <Build Include="Schemas\General.sql" />
     <Build Include="Tables\General.MailingAddress.sql" />
     <Build Include="Tables\ETL.SessionLog.sql" />
     <Build Include="Tables\Snowflake\Reference.YearMonth.sql" />
+    <Build Include="Tables\Snowflake\Reference.PostalState.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\Snowflake\ReadMe.md" />

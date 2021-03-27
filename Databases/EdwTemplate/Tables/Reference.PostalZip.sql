@@ -14,6 +14,7 @@ CREATE TABLE Reference.PostalZip (
 	SessionID uniqueidentifier,
 	PostalCity varchar(50) NOT NULL,
 	PostalState char(2) NOT NULL,
+	CountryCode AS cast('USA' AS char(3)),
 	ZipPopulation int NULL,
 	ZipPopulationEstimateYear int NULL,
 	ZipLatitude float NULL,

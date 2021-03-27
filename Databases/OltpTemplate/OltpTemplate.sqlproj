@@ -74,6 +74,10 @@
     <Build Include="Tables\Reference.TimeTally.sql" />
     <Build Include="Schemas\General.sql" />
     <Build Include="Tables\General.MailingAddress.sql" />
+    <Build Include="Tables\General.Person.sql" />
+    <Build Include="Schemas\SensitiveInfo.sql" />
+    <Build Include="Tables\SensitiveInfo.Person.sql" />
+    <Build Include="Tables\General.PersonMailingAddress.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\DataDictionary.json" />

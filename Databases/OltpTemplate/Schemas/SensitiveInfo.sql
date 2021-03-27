@@ -1,10 +1,10 @@
 ﻿/*******************************************************************************
 Description:
-    The Reference schema holds lookup tables such as date, geography, statuses,
-	etc.
+    The SensitiveInfo schema holds sensitive information such as PII, regulated
+data such as HIPAA or PCI, and other sensitive data requiring extra security.
 --------------------------------------------------------------------------------
 History:
 2021-03-26	Jonathan Szeto - Initial schema creation.
 *******************************************************************************/
-CREATE SCHEMA Reference AUTHORIZATION dbo;
+CREATE SCHEMA SensitiveInfo AUTHORIZATION dbo;
 GO

@@ -20,7 +20,7 @@ CREATE TABLE Reference.EDWTime (
 ) ON [PRIMARY];
 GO
 
-CREATE CLUSTERED INDEX CIX_Reference#TimeOfDay ON Reference.EDWTime (
+CREATE CLUSTERED INDEX CIX_Reference#EDWTime ON Reference.EDWTime (
 	TimeValue
 ) ON [PRIMARY];
 GO
