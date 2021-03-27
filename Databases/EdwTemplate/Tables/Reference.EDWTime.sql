@@ -5,7 +5,7 @@ Description:
 History:
 2021-03-26	Jonathan Szeto - Initial table creation.
 *******************************************************************************/
-CREATE TABLE Reference.TimeOfDay (
+CREATE TABLE Reference.EDWTime (
 	TimeKey int NOT NULL,
 	TimeValue time(0) NOT NULL,
 	TimeHourKey tinyint NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE Reference.TimeOfDay (
 ) ON [PRIMARY];
 GO
 
-CREATE CLUSTERED INDEX CIX_Reference#TimeOfDay ON Reference.TimeOfDay (
+CREATE CLUSTERED INDEX CIX_Reference#TimeOfDay ON Reference.EDWTime (
 	TimeValue
 ) ON [PRIMARY];
 GO
