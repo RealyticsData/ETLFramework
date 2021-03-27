@@ -8,7 +8,7 @@ History:
 *******************************************************************************/
 CREATE TABLE General.PersonEmail (
 	PersonID int NOT NULL,
-	PersonEmail nvarchar(320) NOT NULL,
+	PersonEmail varchar(320) NOT NULL,
 	CreationDate datetime2(7) NOT NULL CONSTRAINT DF_General#PersonEmail_CreationDate DEFAULT sysdatetime(),
 	ModifyDate datetime2(7) NULL,
 	ModifyUser nvarchar(128) NOT NULL CONSTRAINT DF_General#PersonEmail_ModifyUser DEFAULT suser_sname(),
