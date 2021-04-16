@@ -9,6 +9,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ETLAdmin", "ETLAdmin\ETLAdm
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "OltpTemplate", "OltpTemplate\OltpTemplate.sqlproj", "{07B9DBB0-A31A-4A06-A93A-9ED4CA32E55F}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MetadataTracking", "MetadataTracking\MetadataTracking.sqlproj", "{53C3CE9C-04E0-4DCC-977B-9C20978924BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,12 @@ Global
 		{07B9DBB0-A31A-4A06-A93A-9ED4CA32E55F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07B9DBB0-A31A-4A06-A93A-9ED4CA32E55F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{07B9DBB0-A31A-4A06-A93A-9ED4CA32E55F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{53C3CE9C-04E0-4DCC-977B-9C20978924BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53C3CE9C-04E0-4DCC-977B-9C20978924BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53C3CE9C-04E0-4DCC-977B-9C20978924BD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{53C3CE9C-04E0-4DCC-977B-9C20978924BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53C3CE9C-04E0-4DCC-977B-9C20978924BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53C3CE9C-04E0-4DCC-977B-9C20978924BD}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
