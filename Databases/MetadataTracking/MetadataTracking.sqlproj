@@ -62,4 +62,19 @@
     <Folder Include="Tables" />
     <Folder Include="Views" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Schemas\Metadata.sql" />
+    <Build Include="Schemas\PendingRemoval.sql" />
+    <Build Include="Schemas\Temp.sql" />
+    <Build Include="Tables\Metadata.DatabaseTable.sql" />
+    <Build Include="Tables\Metadata.DatabaseTableColumn.sql" />
+    <Build Include="Tables\Metadata.DatabaseType.sql" />
+    <Build Include="Tables\Metadata.HostServer.sql" />
+    <Build Include="Tables\Metadata.LogicalServer.sql" />
+    <Build Include="Tables\Metadata.ServerEnvironment.sql" />
+    <Build Include="Tables\Metadata.SqlDatabase.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
 </Project>

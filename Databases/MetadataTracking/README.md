@@ -1,0 +1,1 @@
+The ETLAdmin database holds tables and stored procedures used for the ETL process framework. This includes server metadata, control dates, and ETL configuration.
