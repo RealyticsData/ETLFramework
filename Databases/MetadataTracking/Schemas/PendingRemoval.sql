@@ -1,0 +1,2 @@
+﻿CREATE SCHEMA PendingRemoval AUTHORIZATION dbo;
+GO
